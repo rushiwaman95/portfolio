@@ -1,0 +1,262 @@
+{
+  "personal": {
+    "name": "Rushikesh Waman",
+    "title": "Sr. AWS Engineer",
+    "currentRole": "Sr. AWS Engineer @ ACC",
+    "experience": "3.5+ years",
+    "email": "rushiwaman95@gmail.com",
+    "phone": "+91 8788393316",
+    "github": "https://github.com/rushiwaman95",
+    "linkedin": "https://www.linkedin.com/in/rushiwaman95/",
+    "portfolio": "https://rushiwaman95.github.io/portfolio/"
+  },
+  "summary": "AWS-certified DevOps Engineer with 3.5+ years of experience in Terraform-managed infrastructure, Jenkins CI/CD, and Kubernetes orchestration. Specialized in building scalable, secure cloud solutions and implementing GitOps practices. Expert in automating deployment pipelines, reducing operational costs, and improving system reliability through infrastructure as code.",
+  
+  "education": {
+    "degree": "B.E. (Information Technology)",
+    "university": "Savitribai Phule Pune University",
+    "year": 2023
+  },
+  
+  "skills": {
+    "cloud": [
+      "Amazon Web Services",
+      "EC2",
+      "EKS",
+      "RDS",
+      "S3",
+      "CloudWatch",
+      "IAM",
+      "VPC",
+      "ALB",
+      "Route 53",
+      "Transit Gateway"
+    ],
+    "iac": [
+      "Terraform",
+      "CloudFormation",
+      "Ansible",
+      "Chef"
+    ],
+    "cicd": [
+      "Jenkins",
+      "GitHub Actions",
+      "AWS CodePipeline",
+      "GitOps"
+    ],
+    "containers": [
+      "Docker",
+      "Kubernetes",
+      "Amazon EKS",
+      "Amazon ECS",
+      "Docker Scout",
+      "Container Registry"
+    ],
+    "security": [
+      "WAF",
+      "IAM",
+      "GuardDuty",
+      "SLSA",
+      "Cosign",
+      "FIPS",
+      "KMS",
+      "Security Groups",
+      "VPC Flow Logs",
+      "CloudTrail",
+      "Config Rules"
+    ],
+    "programming": [
+      "Python",
+      "Java",
+      "Bash/Shell",
+      "Git"
+    ],
+    "databases": [
+      "MySQL",
+      "PostgreSQL",
+      "MongoDB",
+      "DynamoDB"
+    ],
+    "monitoring": [
+      "CloudWatch",
+      "CloudTrail",
+      "Prometheus",
+      "Grafana"
+    ],
+    "other": [
+      "Jira",
+      "Nginx",
+      "Linux"
+    ]
+  },
+  
+  "certifications": [
+    {
+      "name": "AWS Certified DevOps Engineer - Professional",
+      "issuer": "Amazon Web Services",
+      "level": "Professional",
+      "url": "https://www.credly.com/badges/4176be8c-05e0-4d8f-9854-e45ceab80fde/public_url"
+    },
+    {
+      "name": "AWS Certified Solutions Architect - Associate",
+      "issuer": "Amazon Web Services",
+      "level": "Associate",
+      "url": "https://www.credly.com/badges/e915f107-6e14-4a05-8d79-00483ff2117b/linked_in_profile"
+    },
+    {
+      "name": "AWS Certified SysOps Administrator - Associate",
+      "issuer": "Amazon Web Services",
+      "level": "Associate",
+      "url": "https://www.credly.com/badges/2dacc17b-d430-42eb-81e8-bb44b6180f54/public_url"
+    },
+    {
+      "name": "HashiCorp Certified: Terraform - Associate",
+      "issuer": "HashiCorp",
+      "level": "Associate",
+      "url": "https://www.credly.com/badges/25872293-18bf-4bf4-b85a-ff4ca42dc7af/linked_in_profile"
+    },
+    {
+      "name": "IBM Certified: Cybersecurity Fundamentals",
+      "issuer": "IBM",
+      "level": "Fundamentals",
+      "url": "https://www.credly.com/badges/f4805cc7-7b95-45cd-9b68-eb2bb72f84d5/linked_in_profile"
+    }
+  ],
+  
+  "experience": [
+    {
+      "position": "Sr. AWS Engineer",
+      "company": "ACC",
+      "period": "Aug 2025 – Present",
+      "current": true,
+      "responsibilities": [
+        "Architect and manage scalable AWS infrastructure using services like EC2, EKS, RDS, IAM, ALB, and VPC",
+        "Lead deployment automation using Terraform and CloudFormation for multi-account environments",
+        "Design and optimize CI/CD pipelines using Jenkins, GitHub Actions, and AWS CodePipeline",
+        "Implement containerized workloads using Docker and Amazon EKS/ECS with secure IAM roles",
+        "Monitor and troubleshoot production workloads using CloudWatch, Prometheus, and Grafana",
+        "Manage networking components including VPC peering, Transit Gateway, VPN, and Route 53",
+        "Enforce security best practices using IAM policies, Security Groups, GuardDuty, and KMS",
+        "Collaborate with development teams to optimize cloud cost, performance, and reliability",
+        "Drive incident management, root-cause analysis, and high-availability architecture"
+      ],
+      "achievements": []
+    },
+    {
+      "position": "DevOps Engineer",
+      "company": "Flentas",
+      "period": "Feb 2023 – Aug 2025",
+      "current": false,
+      "responsibilities": [
+        "Facilitated continuous deployment practices to enhance software delivery speed",
+        "Established continuous integration pipelines to automate testing and build processes",
+        "Implemented Cosign for container image signing and verification",
+        "Adopted and enforced the SLSA framework to secure software supply chains",
+        "Managed infrastructure with Terraform, enabling declarative, version-controlled provisioning",
+        "Designed and implemented three-tier AWS architecture with disaster recovery and high availability",
+        "Automated configuration management and deployment processes using Ansible"
+      ],
+      "achievements": [
+        "Containerized applications using Docker and deployed to Amazon EKS, improving scalability by 30% and deployment efficiency by 20%",
+        "Managed EKS clusters handling 10x traffic spikes and 500 peak requests per second",
+        "Reduced Kubernetes cluster operational costs by 18% through rightsizing and efficient resource allocation",
+        "Improved audit compliance by 25% through security-focused DevOps practices",
+        "Automated vulnerability scanning across 15 applications, reducing manual security review time by 8 hours/week",
+        "Reduced critical vulnerabilities in container images by 70% within 3 months using Docker Scout",
+        "Improved artifact retrieval speed by 35% and ensured 99.9% availability with Aptly repositories",
+        "Reduced manual effort by 10 hours/week through automated repository publishing pipelines",
+        "Deployed private Git server with Azure AD SSO for 25 developers, improving login experience",
+        "Migrated 30+ repositories with 100% data integrity and zero downtime",
+        "Secured 3 new client engagements through detailed SOWs and architectural diagrams",
+        "Achieved average cost reductions of 20% for client cloud spend",
+        "Improved client satisfaction scores by 20% through DevOps consulting"
+      ]
+    },
+    {
+      "position": "DevOps Intern",
+      "company": "Ignite Solutions",
+      "period": "May 2022 – Jan 2023",
+      "current": false,
+      "responsibilities": [
+        "Facilitated continuous deployment practices to enhance software delivery speed",
+        "Used Docker to containerize microservices and optimize images for faster deployments",
+        "Monitored cloud resources using CloudWatch and helped in log analysis and optimization",
+        "Created Dockerfiles and containerized backend services",
+        "Deployed containers to AWS EC2/ECS with automated rollouts",
+        "Integrated CloudWatch for basic monitoring and log tracking"
+      ],
+      "achievements": []
+    }
+  ],
+  
+  "projects": [
+    {
+      "title": "Disaster Recovery Using Terraform and AWS",
+      "subtitle": "Production-grade infrastructure with DR & HA",
+      "description": "Designed and implemented scalable three-tier architecture using Terraform, ensuring high availability and disaster recovery capabilities.",
+      "tech": ["Terraform", "AWS", "EKS", "CloudWatch"],
+      "metrics": {
+        "uptime": "99.9%",
+        "costReduction": "18%",
+        "scalabilityBoost": "30%"
+      },
+      "status": "Live"
+    },
+    {
+      "title": "Container Security Platform",
+      "subtitle": "Automated vulnerability scanning & compliance",
+      "description": "Implemented comprehensive security scanning across 15 applications with Docker Scout, reducing critical vulnerabilities by 70%.",
+      "tech": ["Docker Scout", "Cosign", "SLSA", "GuardDuty"],
+      "metrics": {
+        "cveReduction": "70%",
+        "timeSaved": "8hrs/week",
+        "appsSecured": "15"
+      },
+      "status": "Active"
+    },
+    {
+      "title": "Private Git Server with SSO",
+      "subtitle": "Enterprise-grade version control solution",
+      "description": "Deployed self-hosted Git server with Azure AD integration, successfully migrating 30+ repositories for 25 developers with zero downtime.",
+      "tech": ["Git", "Azure AD", "SSO", "EC2"],
+      "metrics": {
+        "reposMigrated": "30+",
+        "activeUsers": "25",
+        "downtime": "0"
+      },
+      "status": "Production"
+    },
+    {
+      "title": "Containerization of Three-Tier Application",
+      "subtitle": "Scalable microservices architecture",
+      "description": "Containerized a three-tier application, isolating the presentation, business logic, and database layers using Docker. Enhanced scalability and streamlined deployment on Kubernetes.",
+      "tech": ["Docker", "Kubernetes", "EKS", "Nginx"],
+      "metrics": {
+        "appsContainerized": "20+",
+        "imageSizeReduced": "70%",
+        "optimizationLevel": "99.9%"
+      },
+      "status": "Production"
+    },
+    {
+      "title": "Aptly Repository Management",
+      "subtitle": "High-performance package distribution",
+      "description": "Deployed and managed Aptly repositories on Amazon EC2, served securely via Nginx, integrated with EFS for shared storage.",
+      "tech": ["Aptly", "EC2", "Nginx", "EFS"],
+      "metrics": {
+        "retrievalSpeedImprovement": "35%",
+        "availability": "99.9%",
+        "timeSaved": "10hrs/week"
+      },
+      "status": "Production"
+    }
+  ],
+  
+  "highlights": {
+    "totalExperience": "3.5+",
+    "certifications": 5,
+    "dockerExperience": "2+",
+    "awsExperience": "2.5+",
+    "terraformExperience": "1.5+"
+  }
+}

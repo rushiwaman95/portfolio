@@ -1,0 +1,243 @@
+/* terminal-view.css - Terminal View Styles */
+
+/* ========================================
+   TERMINAL VIEW CONTAINER
+   ======================================== */
+
+#terminal-view {
+    font-family: 'Courier New', Monaco, monospace;
+    background: var(--terminal-bg);
+    color: var(--terminal-text);
+    height: 100vh;
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+}
+
+#terminal-view .container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* ========================================
+   TERMINAL PANEL
+   ======================================== */
+
+.terminal-panel {
+    height: 75vh;
+    background: var(--terminal-bg);
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--terminal-border);
+}
+
+/* ========================================
+   TERMINAL HEADER
+   ======================================== */
+
+#terminal-view .terminal-header {
+    background: var(--terminal-bg);
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--terminal-border);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.terminal-buttons {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.terminal-button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.terminal-button.close {
+    background: #ff5f56;
+}
+
+.terminal-button.minimize {
+    background: #ffbd2e;
+}
+
+.terminal-button.maximize {
+    background: #27ca3f;
+}
+
+#terminal-view .terminal-title {
+    color: var(--terminal-text);
+    font-size: var(--font-sm);
+    margin-left: 1rem;
+    opacity: 0.7;
+}
+
+/* ========================================
+   TERMINAL CONTENT
+   ======================================== */
+
+.terminal-content {
+    flex-grow: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    font-size: var(--font-sm);
+    line-height: 1.6;
+}
+
+.terminal-line {
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* ========================================
+   INPUT LINE
+   ======================================== */
+
+.input-line {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.terminal-input {
+    background: transparent;
+    border: none;
+    color: var(--terminal-text);
+    font-family: 'Courier New', Monaco, monospace;
+    font-size: var(--font-sm);
+    outline: none;
+    flex: 1;
+    margin-left: 0.5rem;
+    caret-color: var(--terminal-success);
+}
+
+.terminal-input::placeholder {
+    color: rgba(201, 209, 217, 0.5);
+}
+
+/* ========================================
+   TERMINAL TEXT COLORS
+   ======================================== */
+
+.prompt {
+    color: var(--terminal-prompt);
+    font-weight: bold;
+}
+
+.command {
+    color: var(--terminal-command);
+    font-weight: bold;
+}
+
+.output {
+    color: var(--terminal-text);
+}
+
+.error {
+    color: var(--terminal-error);
+}
+
+.success {
+    color: var(--terminal-success);
+}
+
+.warning {
+    color: var(--terminal-warning);
+}
+
+.info {
+    color: var(--terminal-info);
+}
+
+/* ========================================
+   LIVE TERMINAL (FEED)
+   ======================================== */
+
+.live-terminal {
+    height: 25vh;
+    background: #161b22;
+    border-top: 1px solid var(--terminal-border);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.live-output {
+    padding: 1rem;
+    overflow-y: auto;
+    font-size: var(--font-xs);
+    line-height: 1.4;
+    flex-grow: 1;
+}
+
+.output-line {
+    margin-bottom: 0.3rem;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: slideIn 0.5s ease forwards;
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   TERMINAL SCROLLBAR
+   ======================================== */
+
+.terminal-content::-webkit-scrollbar,
+.live-output::-webkit-scrollbar {
+    width: 8px;
+}
+
+.terminal-content::-webkit-scrollbar-track,
+.live-output::-webkit-scrollbar-track {
+    background: var(--terminal-bg);
+}
+
+.terminal-content::-webkit-scrollbar-thumb,
+.live-output::-webkit-scrollbar-thumb {
+    background: var(--terminal-border);
+    border-radius: 4px;
+}
+
+.terminal-content::-webkit-scrollbar-thumb:hover,
+.live-output::-webkit-scrollbar-thumb:hover {
+    background: #30363d;
+}
+
+/* ========================================
+   TERMINAL LINKS
+   ======================================== */
+
+#terminal-view a {
+    color: var(--terminal-info);
+    text-decoration: underline;
+}
+
+#terminal-view a:hover {
+    color: var(--terminal-prompt);
+}
+
+/* ========================================
+   TERMINAL ANIMATIONS
+   ======================================== */
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.terminal-cursor {
+    animation: blink 1s infinite;
+}

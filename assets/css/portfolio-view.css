@@ -1,0 +1,273 @@
+/* portfolio-view.css - Portfolio View Styles */
+
+/* ========================================
+   PORTFOLIO VIEW CONTAINER
+   ======================================== */
+
+#portfolio-view {
+    display: block;
+    margin-top: 100px;
+    flex-grow: 1;
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+
+header {
+    background: rgba(35, 47, 62, 0.95);
+    backdrop-filter: blur(10px);
+    color: var(--white);
+    padding: 2rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: var(--z-fixed);
+    box-shadow: var(--shadow-md);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 2rem;
+}
+
+header h1 {
+    font-size: var(--font-3xl);
+    margin-bottom: 0.5rem;
+    background: linear-gradient(45deg, #ff6b6b, var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.subtitle {
+    font-size: var(--font-lg);
+    opacity: 0.9;
+    margin-bottom: 1rem;
+}
+
+/* ========================================
+   NAVIGATION
+   ======================================== */
+
+nav {
+    margin-top: 1rem;
+}
+
+nav a {
+    color: var(--white);
+    text-decoration: none;
+    margin: 0 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-xl);
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    font-weight: 500;
+    display: inline-block;
+}
+
+nav a:hover,
+nav a:focus {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    text-decoration: none;
+    box-shadow: 0 2px 12px rgba(52, 152, 219, 0.12);
+    color: var(--white);
+}
+
+nav a:active {
+    background: rgba(52, 152, 219, 0.25);
+    color: var(--white);
+    text-decoration: none;
+}
+
+/* ========================================
+   MAIN CONTENT
+   ======================================== */
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* ========================================
+   PIPELINE CONTAINER
+   ======================================== */
+
+.pipeline-container {
+    background: var(--terminal-bg);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    margin: 2rem 0;
+    color: var(--white);
+    overflow: hidden;
+    position: relative;
+}
+
+.pipeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.pipeline-header h3 {
+    margin: 0;
+    color: var(--white);
+}
+
+.pipeline-status {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Pipeline Flow */
+.pipeline-flow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem 0;
+    position: relative;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+}
+
+.pipeline-stage {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    margin: 0 0.5rem;
+    transition: all var(--transition-base);
+    cursor: pointer;
+    min-width: 100px;
+}
+
+.pipeline-stage:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+.pipeline-stage.active {
+    background: rgba(52, 152, 219, 0.3);
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.5);
+}
+
+.pipeline-stage.success {
+    background: rgba(39, 174, 96, 0.3);
+    box-shadow: 0 0 20px rgba(39, 174, 96, 0.5);
+}
+
+.stage-icon {
+    font-size: var(--font-2xl);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.stage-name {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.stage-time {
+    font-size: var(--font-xs);
+    opacity: 0.7;
+}
+
+.pipeline-arrow {
+    position: absolute;
+    top: 50%;
+    right: -15px;
+    transform: translateY(-50%);
+    color: var(--info-color);
+    font-size: var(--font-xl);
+    z-index: 10;
+}
+
+/* Pipeline Logs */
+.pipeline-logs {
+    background: var(--terminal-bg);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    margin-top: 1rem;
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-sm);
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid var(--terminal-border);
+}
+
+.log-line {
+    margin: 0.2rem 0;
+    opacity: 0;
+    animation: logAppear 0.5s ease forwards;
+}
+
+@keyframes logAppear {
+    to { opacity: 1; }
+}
+
+.log-success { color: var(--terminal-success); }
+.log-info { color: var(--terminal-info); }
+.log-warning { color: var(--terminal-warning); }
+.log-error { color: var(--terminal-error); }
+
+/* ========================================
+   INFRASTRUCTURE DIAGRAM
+   ======================================== */
+
+.infrastructure-diagram {
+    background: var(--terminal-bg);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    margin: 2rem 0;
+    color: var(--white);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.aws-architecture {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.tier {
+    background: rgba(52, 152, 219, 0.2);
+    border: 2px solid var(--info-color);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin: 0.5rem;
+    min-width: 150px;
+    transition: all var(--transition-base);
+    cursor: pointer;
+}
+
+.tier:hover {
+    background: rgba(52, 152, 219, 0.3);
+    transform: scale(1.05);
+}
+
+.tier-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.tier-services {
+    font-size: var(--font-sm);
+    opacity: 0.8;
+}

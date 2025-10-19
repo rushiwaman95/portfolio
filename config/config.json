@@ -1,0 +1,25 @@
+{
+  "app": {
+    "name": "Rushikesh Waman Portfolio",
+    "version": "2.0.0",
+    "defaultView": "terminal",
+    "author": "Rushikesh Waman"
+  },
+  "terminal": {
+    "liveFeedInterval": 3000,
+    "maxHistorySize": 100,
+    "promptPrefix": "rushiwaman95@devops:~$",
+    "welcomeMessage": "Welcome to Rushikesh Waman's DevOps Portfolio Terminal"
+  },
+  "ai": {
+    "provider": "gemini",
+    "model": "gemini-2.0-flash",
+    "maxTokens": 1000,
+    "temperature": 0.7
+  },
+  "portfolio": {
+    "animationDuration": 800,
+    "pipelineStageDelay": 1200,
+    "scrollOffset": 80
+  }
+}

@@ -4,1176 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rushikesh Waman - AWS-Certified DevOps Engineer with 3.5+ years of experience in cloud infrastructure, CI/CD, and Kubernetes">
+    <meta name="keywords" content="DevOps, AWS, Terraform, Kubernetes, Docker, CI/CD, Cloud Engineer">
+    <meta name="author" content="Rushikesh Waman">
     <title>Rushikesh Waman | DevOps Engineer Portfolio</title>
-    <style>
-        /* Global Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        /* ...existing code... */
-        @media (max-width: 768px) {
-            #summary .pipeline-container>div[style*="display: flex"] {
-                flex-direction: column !important;
-                gap: 0.5rem;
-                align-items: stretch;
-            }
-
-            #summary .pipeline-container>div[style*="text-align: center"]>div {
-                margin-bottom: 0.7rem;
-            }
-
-            #summary .pipeline-container>div[style*="text-align: center"]>div:last-child {
-                margin-bottom: 0;
-            }
-
-            #summary .pipeline-container>div[style*="text-align: center"]>div>div:first-child {
-                font-size: 1.2rem !important;
-                /* Reduce metric number size */
-                margin-bottom: 0.2rem !important;
-            }
-
-            #summary .pipeline-container>div[style*="text-align: center"]>div>div:last-child {
-                font-size: 0.85rem !important;
-                /* Reduce label size */
-            }
-        }
-
-        /* ...existing code... */
-        /* Single Toggle Button Styles (repurposed from scroll-to-top) */
-        .single-toggle-button,
-        .ask-ai-trigger-button {
-            position: fixed;
-            right: 20px;
-            /* Adjust as needed */
-            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
-            /* Green for terminal */
-            color: white;
-            padding: 12px 20px;
-            /* Make it a bit larger */
-            border-radius: 25px;
-            /* More rounded */
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            z-index: 2000;
-            /* Ensure it's on top */
-            display: flex;
-            /* To center icon/text if any */
-            align-items: center;
-            justify-content: center;
-        }
-
-        .single-toggle-button:hover,
-        .ask-ai-trigger-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-        }
-
-        .single-toggle-button {
-            bottom: 20px;
-            /* Adjust as needed */
-        }
-
-        .ask-ai-trigger-button {
-            bottom: 70px;
-            /* Position above the toggle button */
-            background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
-            /* Yellow for AI */
-        }
-
-        .ask-ai-trigger-button:hover {
-            background: linear-gradient(135deg, #e0a800 0%, #d39e00 100%);
-        }
-
-        .single-toggle-button.portfolio-active {
-            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-            /* Blue for portfolio */
-        }
-
-        /* Ask AI Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 3000;
-            /* Above other buttons */
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        .modal-overlay.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: #1a1a2e;
-            /* Dark background like terminal */
-            color: #c9d1d9;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            width: 90%;
-            max-width: 600px;
-            /* Wider for chat content */
-            height: 80%;
-            /* Taller for chat content */
-            display: flex;
-            flex-direction: column;
-            transform: translateY(-20px);
-            transition: transform 0.3s ease;
-            position: relative;
-        }
-
-        .modal-overlay.visible .modal-content {
-            transform: translateY(0);
-        }
-
-        .modal-content h3 {
-            margin-top: 0;
-            margin-bottom: 15px;
-            color: #58a6ff;
-            /* Info blue */
-            font-size: 1.5rem;
-            text-align: center;
-        }
-
-        .chat-log {
-            flex-grow: 1;
-            overflow-y: auto;
-            border: 1px solid #21262d;
-            border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 15px;
-            background: #0d1117;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            display: flex;
-            flex-direction: column;
-            /* To make messages stack */
-        }
-
-        .chat-log::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .chat-log::-webkit-scrollbar-track {
-            background: #0d1117;
-        }
-
-        .chat-log::-webkit-scrollbar-thumb {
-            background: #21262d;
-            border-radius: 4px;
-        }
-
-        .chat-log::-webkit-scrollbar-thumb:hover {
-            background: #30363d;
-        }
-
-        .chat-message {
-            margin-bottom: 10px;
-            padding: 8px 12px;
-            border-radius: 8px;
-            max-width: 90%;
-        }
-
-        .chat-message.user {
-            background: #3498db;
-            /* Blue for user */
-            color: white;
-            align-self: flex-end;
-            /* Align to right */
-            text-align: right;
-        }
-
-        .chat-message.ai {
-            background: #2c3e50;
-            /* Darker background for AI */
-            color: #c9d1d9;
-            align-self: flex-start;
-            /* Align to left */
-            text-align: left;
-        }
-
-        .chat-message.info {
-            background: #21262d;
-            color: #58a6ff;
-            align-self: center;
-            text-align: center;
-            font-style: italic;
-            font-size: 0.85rem;
-        }
-
-        .modal-input-container {
-            display: flex;
-            gap: 10px;
-        }
-
-        .modal-input-container textarea {
-            flex-grow: 1;
-            padding: 10px;
-            border: 1px solid #21262d;
-            border-radius: 5px;
-            background: #0d1117;
-            color: #c9d1d9;
-            font-family: 'Courier New', Monaco, monospace;
-            font-size: 1rem;
-            resize: none;
-            /* Disable manual resize */
-            min-height: 40px;
-            /* Adjust as needed */
-            max-height: 120px;
-            /* Prevent it from getting too large */
-            overflow-y: auto;
-            /* Enable scrolling if content overflows */
-            outline: none;
-        }
-
-        .modal-input-container textarea:focus {
-            border-color: #58a6ff;
-            box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.5);
-        }
-
-        .modal-buttons {
-            display: flex;
-            justify-content: flex-end;
-            /* Align buttons to the right */
-            gap: 10px;
-            margin-top: 15px;
-            /* Space between input and buttons */
-        }
-
-        .modal-buttons button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: all 0.2s ease;
-        }
-
-        .modal-buttons .submit-btn {
-            background: #3fb950;
-            /* Success green */
-            color: white;
-        }
-
-        .modal-buttons .submit-btn:hover {
-            background: #238636;
-        }
-
-        .modal-buttons .cancel-btn {
-            background: #6a737d;
-            /* Gray */
-            color: white;
-        }
-
-        .modal-buttons .cancel-btn:hover {
-            background: #4a515a;
-        }
-
-        /* Portfolio View Styles (from original index.html) */
-        #portfolio-view {
-            flex-grow: 1;
-            margin-top: 100px;
-            /* Space for header */
-            display: block;
-            /* Default active view */
-        }
-
-        header {
-            background: rgba(35, 47, 62, 0.95);
-            backdrop-filter: blur(10px);
-            color: white;
-            padding: 2rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-            padding: 0 2rem;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from {
-                filter: drop-shadow(0 0 5px rgba(255, 107, 107, 0.5));
-            }
-
-            to {
-                filter: drop-shadow(0 0 20px rgba(78, 205, 196, 0.8));
-            }
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 1rem;
-        }
-
-        nav {
-            margin-top: 1rem;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            /* Removes underline */
-            margin: 0 1rem;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            font-weight: 500;
-            box-shadow: none;
-            outline: none;
-            border: none;
-        }
-
-        nav a:hover,
-        nav a:focus {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-            text-decoration: none;
-            /* Ensures no underline on hover/focus */
-            box-shadow: 0 2px 12px rgba(52, 152, 219, 0.12);
-            color: #fff;
-        }
-
-        nav a:active {
-            background: rgba(52, 152, 219, 0.25);
-            color: #fff;
-            text-decoration: none;
-        }
-
-        /* ...existing code... */
-        main {
-            margin-top: 80px;
-            /* Adjusted to accommodate the fixed header */
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 2rem;
-        }
-
-        .section {
-            background: rgba(255, 255, 255, 0.95);
-            margin: 2rem 0;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 0.8s ease forwards;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .section:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .section:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .section:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        .section:nth-child(4) {
-            animation-delay: 0.4s;
-        }
-
-        .section:nth-child(5) {
-            animation-delay: 0.5s;
-        }
-
-        .section:nth-child(6) {
-            animation-delay: 0.6s;
-        }
-
-        h2 {
-            color: #2c3e50;
-            margin-bottom: 1.5rem;
-            font-size: 2rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            border-radius: 2px;
-        }
-
-        /* CI/CD Pipeline Visualization */
-        .pipeline-container {
-            background: #1a1a2e;
-            border-radius: 10px;
-            padding: 2rem;
-            margin: 2rem 0;
-            color: white;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .pipeline-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .pipeline-status {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .status-badge {
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            animation: pulse 2s infinite;
-        }
-
-        .status-success {
-            background: #27ae60;
-            color: white;
-        }
-
-        .status-running {
-            background: #f39c12;
-            color: white;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .pipeline-flow {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 2rem 0;
-            position: relative;
-        }
-
-        .pipeline-stage {
-            flex: 1;
-            text-align: center;
-            position: relative;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            margin: 0 0.5rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .pipeline-stage:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
-        }
-
-        .pipeline-stage.active {
-            background: rgba(52, 152, 219, 0.3);
-            box-shadow: 0 0 20px rgba(52, 152, 219, 0.5);
-        }
-
-        .pipeline-stage.success {
-            background: rgba(39, 174, 96, 0.3);
-            box-shadow: 0 0 20px rgba(39, 174, 96, 0.5);
-        }
-
-        .stage-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .stage-name {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .stage-time {
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
-
-        .pipeline-arrow {
-            position: absolute;
-            top: 50%;
-            right: -15px;
-            transform: translateY(-50%);
-            color: #3498db;
-            font-size: 1.5rem;
-            z-index: 10;
-        }
-
-        .pipeline-logs {
-            background: #0d1117;
-            border-radius: 5px;
-            padding: 1rem;
-            margin-top: 1rem;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            max-height: 200px;
-            overflow-y: auto;
-            border: 1px solid #30363d;
-        }
-
-        .log-line {
-            margin: 0.2rem 0;
-            opacity: 0;
-            animation: logAppear 0.5s ease forwards;
-        }
-
-        @keyframes logAppear {
-            to {
-                opacity: 1;
-            }
-        }
-
-        .log-success {
-            color: #28a745;
-        }
-
-        .log-info {
-            color: #17a2b8;
-        }
-
-        .log-warning {
-            color: #ffc107;
-        }
-
-        .log-error {
-            color: #dc3545;
-        }
-
-        /* Interactive Skills Matrix */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .skill-category {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .skill-category::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s;
-        }
-
-        .skill-category:hover::before {
-            transform: translateX(100%);
-        }
-
-        .skill-category:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .skill-category h3 {
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .skill-items {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .skill-item {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .skill-item:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
-        }
-
-        /* Project Cards */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .project-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border: 1px solid #e0e0e0;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .project-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1.5rem;
-            position: relative;
-        }
-
-        .project-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .project-subtitle {
-            opacity: 0.9;
-            font-size: 0.9rem;
-        }
-
-        .project-status {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-        }
-
-        .project-content {
-            padding: 1.5rem;
-        }
-
-        .project-description {
-            margin-bottom: 1rem;
-            color: #666;
-        }
-
-        .project-metrics {
-            display: flex;
-            justify-content: space-around;
-            margin: 1rem 0;
-        }
-
-        .metric {
-            text-align: center;
-        }
-
-        .metric-value {
-            display: block;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .metric-label {
-            font-size: 0.8rem;
-            color: #999;
-        }
-
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .tech-tag {
-            background: #f8f9fa;
-            color: #495057;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            border: 1px solid #e9ecef;
-        }
-
-        .verify-btn {
-            display: inline-block;
-            margin-top: 0.7rem;
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 0.4rem 1.2rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: bold;
-            transition: background 0.2s;
-            text-decoration: none;
-            /* Removes underline */
-        }
-
-        .verify-btn:hover {
-            background: #217dbb;
-            text-decoration: none;
-            /* Ensures no underline on hover */
-        }
-
-
-        /* Infrastructure Diagram */
-        .infrastructure-diagram {
-            background: #1a1a2e;
-            border-radius: 10px;
-            padding: 2rem;
-            margin: 2rem 0;
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .aws-architecture {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .tier {
-            background: rgba(52, 152, 219, 0.2);
-            border: 2px solid #3498db;
-            border-radius: 10px;
-            padding: 1rem;
-            margin: 0.5rem;
-            min-width: 150px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .tier:hover {
-            background: rgba(52, 152, 219, 0.3);
-            transform: scale(1.05);
-        }
-
-        .tier-title {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .tier-services {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        /* Contact Section */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .contact-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            text-align: center;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: block;
-        }
-
-        .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            text-decoration: none;
-            color: white;
-        }
-
-        .contact-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-label {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        .contact-value {
-            font-weight: bold;
-            word-break: break-all;
-        }
-
-
-        /* Terminal View Styles (from original v3.html) */
-        #terminal-view {
-            font-family: 'Courier New', Monaco, monospace;
-            background: #0d1117;
-            color: #c9d1d9;
-            height: 100vh;
-            overflow: hidden;
-            display: none;
-            /* Hidden by default */
-            flex-direction: column;
-        }
-
-        #terminal-view .container {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-
-        .terminal-panel {
-            height: 75vh;
-            background: #0d1117;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .live-terminal {
-            height: 25vh;
-            background: #161b22;
-            border-top: 1px solid #21262d;
-            overflow: hidden;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #terminal-view .terminal-header {
-            background: #0d1117;
-            padding: 0.5rem 1rem;
-            border-bottom: 1px solid #21262d;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex-shrink: 0;
-        }
-
-        .terminal-buttons {
-            display: flex;
-            gap: 0.3rem;
-        }
-
-        .terminal-button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .close {
-            background: #ff5f56;
-        }
-
-        .minimize {
-            background: #ffbd2e;
-        }
-
-        .maximize {
-            background: #27ca3f;
-        }
-
-        #terminal-view .terminal-title {
-            color: #ff0000;
-            font-size: 0.9rem;
-            margin-left: 1rem;
-        }
-
-        .live-output {
-            padding: 1rem;
-            overflow-y: auto;
-            font-size: 0.85rem;
-            line-height: 1.4;
-            flex-grow: 1;
-        }
-
-        .output-line {
-            margin-bottom: 0.3rem;
-            opacity: 0;
-            transform: translateY(10px);
-            animation: slideIn 0.5s ease forwards;
-        }
-
-        @keyframes slideIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .prompt {
-            color: #58a6ff;
-        }
-
-        .command {
-            color: #f0883e;
-        }
-
-        .output {
-            color: #c9d1d9;
-        }
-
-        .error {
-            color: #ff7b72;
-        }
-
-        .success {
-            color: #3fb950;
-        }
-
-        .warning {
-            color: #d29922;
-        }
-
-        .info {
-            color: #58a6ff;
-        }
-
-        .terminal-content {
-            flex-grow: 1;
-            padding: 1rem;
-            overflow-y: auto;
-            font-size: 0.9rem;
-        }
-
-        .terminal-line {
-            margin-bottom: 0.5rem;
-            line-height: 1.4;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        .input-line {
-            display: flex;
-            align-items: center;
-            margin-top: 1rem;
-        }
-
-        .terminal-input {
-            background: transparent;
-            border: none;
-            color: #c9d1d9;
-            font-family: 'Courier New', Monaco, monospace;
-            font-size: 0.9rem;
-            outline: none;
-            flex: 1;
-            margin-left: 0.5rem;
-        }
-
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #0d1117;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #21262d;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #30363d;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-
-            .pipeline-header {
-                flex-direction: column !important;
-                align-items: flex-start !important;
-                gap: 0.7rem !important;
-            }
-
-            .pipeline-header h3 {
-                margin-bottom: 0.5rem !important;
-            }
-
-            .pipeline-status {
-                margin-top: 0 !important;
-                margin-bottom: 0.5rem !important;
-                justify-content: flex-start !important;
-                width: 100%;
-            }
-
-            header h1 {
-                font-size: 2rem;
-            }
-
-            .subtitle {
-                font-size: 1rem;
-            }
-
-            nav a {
-                margin: 0.2rem;
-                font-size: 0.9rem;
-            }
-
-            main {
-                margin-top: 77px;
-                padding: 1rem;
-            }
-
-            .pipeline-flow {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .pipeline-stage {
-                margin: 0;
-            }
-
-            .pipeline-arrow {
-                display: none;
-            }
-
-            .skills-grid,
-            .project-grid,
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .aws-architecture {
-                flex-direction: column;
-            }
-
-            /* Terminal view specific responsive adjustments */
-            #terminal-view .terminal-panel {
-                height: 70vh;
-            }
-
-            #terminal-view .live-terminal {
-                height: 30vh;
-            }
-
-            /* Modal adjustments for smaller screens */
-            .modal-content {
-                width: 95%;
-                height: 90%;
-                padding: 15px;
-            }
-
-            .chat-message {
-                max-width: 100%;
-                /* Allow messages to take full width */
-            }
-        }
-    </style>
+    <!-- Favicon (optional - add your own) -->
+    <!-- <link rel="icon" type="image/png" href="assets/images/favicon.png"> -->
+
+    <!-- CSS Files - Load in order -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/portfolio-view.css">
+    <link rel="stylesheet" href="assets/css/terminal-view.css">
+    <link rel="stylesheet" href="assets/css/modal.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
 </head>
 
 <body>
-    <button id="askAiTriggerButton" class="ask-ai-trigger-button" onclick="openAskAIPopup()">Ask AI</button>
 
-    <button id="mainToggleButton" class="single-toggle-button" onclick="toggleView()">CLI</button>
-
-    <div id="askAiModal" class="modal-overlay">
-        <div class="modal-content">
-            <h3>Ask the AI Assistant</h3>
-            <div id="aiChatLog" class="chat-log">
-                <div class="chat-message ai">Hello! I'm Amix AI assistant. I am here to answer your queries about
-                    Rushikesh Waman</div>
-            </div>
-            <div class="modal-input-container">
-                <textarea id="aiQueryInput" placeholder="Type your question..."></textarea>
-                <div class="modal-buttons"><button class="submit-btn" onclick="submitAIPopupQuery()">Ask</button></div>
-            </div>
-            <div class="modal-buttons">
-                <button class="cancel-btn" onclick="closeAskAIPopup()">Close Chat</button>
-            </div>
-        </div>
-    </div>
-
+    <!-- ========================================
+         PORTFOLIO VIEW
+         ======================================== -->
     <div id="portfolio-view">
+        
+        <!-- Header -->
         <header>
             <div class="header-content">
                 <h1>Rushikesh Waman</h1>
-                <div class="subtitle">AWS-Certified DevOps Engineer | Cloud Engineer</div>
+                <div class="subtitle">AWS-Certified DevOps Engineer | Cloud Architect</div>
                 <nav>
                     <a href="#summary">Summary</a>
                     <a href="#certifications">Certifications</a>
@@ -1185,23 +44,23 @@
             </div>
         </header>
 
+        <!-- Main Content -->
         <main>
+            
+            <!-- Summary Section -->
             <section id="summary" class="section">
                 <h2>Professional Summary</h2>
-                <p>AWS-certified DevOps Engineer with 2.5+ years of experience in Terraform-managed infrastructure,
-                    Jenkins CI/CD, and Kubernetes orchestration. Specialized in building scalable, secure cloud
-                    solutions and implementing GitOps practices. Expert in automating deployment pipelines, reducing
-                    operational costs, and improving system reliability through infrastructure as code.</p>
+                <p id="summary-text">Loading...</p>
 
                 <div class="pipeline-container">
                     <div class="pipeline-header">
                         <h3>🚀 DevOps Journey</h3>
                         <div class="pipeline-status">
-                            <span class="status-badge status-success">✓ 2.8+ Years Experience</span>
+                            <span class="status-badge status-success">✓ 3.5+ Years Experience</span>
                             <span class="status-badge status-running">🔄 Always Learning</span>
                         </div>
                     </div>
-                    <div style="display: flex; justify-content: space-around; text-align: center;">
+                    <div style="display: flex; justify-content: space-around; text-align: center; flex-wrap: wrap; gap: 1rem;">
                         <div>
                             <div style="font-size: 2rem; margin-bottom: 0.5rem;">5</div>
                             <div>Professional Certifications</div>
@@ -1222,79 +81,23 @@
                 </div>
             </section>
 
+            <!-- Certifications Section -->
             <section id="certifications" class="section">
                 <h2>Professional Certifications</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3>🏆 AWS Certified DevOps Engineer</h3>
-                        <div style="margin-top: 1rem;">
-                            <div style="font-size: 0.9rem; opacity: 0.8;">Professional Level</div>
-                            <div style="font-size: 0.8rem; opacity: 0.7;">Amazon Web Services</div>
-                            <a href="https://www.credly.com/badges/4176be8c-05e0-4d8f-9854-e45ceab80fde/public_url"
-                                target="_blank" rel="noopener noreferrer" class="verify-btn">
-                                Verify
-                            </a>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3>🏆 AWS Solutions Architect Associate</h3>
-                        <div style="margin-top: 1rem;">
-                            <div style="font-size: 0.9rem; opacity: 0.8;">Associate Level</div>
-                            <div style="font-size: 0.8rem; opacity: 0.7;">Amazon Web Services</div>
-                            <a href="https://www.credly.com/badges/e915f107-6e14-4a05-8d79-00483ff2117b/linked_in_profile"
-                                target="_blank" rel="noopener noreferrer" class="verify-btn"
-                                style="display:inline-block; margin-top:0.7rem; background:#3498db; color:white; border:none; padding:0.4rem 1.2rem; border-radius:20px; cursor:pointer; font-size:0.9rem; font-weight:bold; transition:background 0.2s;">
-                                Verify
-                            </a>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3>🏆 AWS SysOps Administrator</h3>
-                        <div style="margin-top: 1rem;">
-                            <div style="font-size: 0.9rem; opacity: 0.8;">Associate Level</div>
-                            <div style="font-size: 0.8rem; opacity: 0.7;">Amazon Web Services</div>
-                            <a href="https://www.credly.com/badges/2dacc17b-d430-42eb-81e8-bb44b6180f54/public_url"
-                                target="_blank" rel="noopener noreferrer" class="verify-btn"
-                                style="display:inline-block; margin-top:0.7rem; background:#3498db; color:white; border:none; padding:0.4rem 1.2rem; border-radius:20px; cursor:pointer; font-size:0.9rem; font-weight:bold; transition:background 0.2s;">
-                                Verify
-                            </a>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3>🏆 HashiCorp Terraform</h3>
-                        <div style="margin-top: 1rem;">
-                            <div style="font-size: 0.9rem; opacity: 0.8;">Associate Level</div>
-                            <div style="font-size: 0.8rem; opacity: 0.7;">HashiCorp</div>
-                            <a href="https://www.credly.com/badges/25872293-18bf-4bf4-b85a-ff4ca42dc7af/linked_in_profile"
-                                target="_blank" rel="noopener noreferrer" class="verify-btn"
-                                style="display:inline-block; margin-top:0.7rem; background:#3498db; color:white; border:none; padding:0.4rem 1.2rem; border-radius:20px; cursor:pointer; font-size:0.9rem; font-weight:bold; transition:background 0.2s;">
-                                Verify
-                            </a>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3>🏆 IBM Cybersecurity</h3>
-                        <div style="margin-top: 1rem;">
-                            <div style="font-size: 0.9rem; opacity: 0.8;">Fundamentals</div>
-                            <div style="font-size: 0.8rem; opacity: 0.7;">IBM</div>
-                            <a href="https://www.credly.com/badges/f4805cc7-7b95-45cd-9b68-eb2bb72f84d5/linked_in_profile"
-                                target="_blank" rel="noopener noreferrer" class="verify-btn"
-                                style="display:inline-block; margin-top:0.7rem; background:#3498db; color:white; border:none; padding:0.4rem 1.2rem; border-radius:20px; cursor:pointer; font-size:0.9rem; font-weight:bold; transition:background 0.2s;">
-                                Verify
-                            </a>
-                        </div>
-                    </div>
+                <div class="skills-grid" id="certifications-grid">
+                    <!-- Will be populated by JavaScript -->
+                    <p>Loading certifications...</p>
                 </div>
             </section>
 
+            <!-- CI/CD Pipeline Section -->
             <section id="pipeline" class="section">
                 <h2>Interactive CI/CD Pipeline</h2>
                 <div class="pipeline-container">
                     <div class="pipeline-header">
                         <h3>🔄 Continuous Integration & Deployment</h3>
                         <div class="pipeline-status">
-                            <span class="status-badge status-success" id="portfolio-pipeline-status">✓ All Checks
-                                Passing</span>
+                            <span class="status-badge status-success" id="portfolio-pipeline-status">✓ All Checks Passing</span>
                             <span style="font-size: 0.9rem; opacity: 0.7;">Last run: 2m 34s ago</span>
                         </div>
                     </div>
@@ -1344,257 +147,49 @@
                         <div class="log-line log-success">[SUCCESS] Deployment completed successfully</div>
                     </div>
 
-                    <button onclick="triggerPipeline()"
-                        style="background: #27ae60; color: white; border: none; padding: 0.8rem 2rem; border-radius: 25px; cursor: pointer; margin-top: 1rem; font-size: 1rem; transition: all 0.3s ease;">
+                    <button onclick="triggerPipeline()" class="btn-primary" style="margin-top: 1rem;">
                         🚀 Trigger New Build
                     </button>
                 </div>
             </section>
 
+            <!-- Skills Section -->
             <section id="skills" class="section">
                 <h2>Technical Skills Matrix</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3>☁️ Cloud Platforms</h3>
-                        <div class="skill-items">
-                            <span class="skill-item">Amazon Web Services</span>
-                            <span class="skill-item">EC2</span>
-                            <span class="skill-item">EKS</span>
-                            <span class="skill-item">S3</span>
-                            <span class="skill-item">CloudWatch</span>
-                            <span class="skill-item">IAM</span>
-                            <span class="skill-item">VPC</span>
-                        </div>
-                    </div>
-
-                    <div class="skill-category">
-                        <h3>🔧 Automation & IaC</h3>
-                        <div class="skill-items">
-                            <span class="skill-item">Terraform</span>
-                            <span class="skill-item">CloudFormation</span>
-                            <span class="skill-item">Ansible</span>
-                            <span class="skill-item">Chef</span>
-                            <span class="skill-item">Jenkins</span>
-                        </div>
-                    </div>
-
-                    <div class="skill-category">
-                        <h3>🐳 Containerization</h3>
-                        <div class="skill-items">
-                            <span class="skill-item">Docker</span>
-                            <span class="skill-item">Kubernetes</span>
-                            <span class="skill-item">EKS</span>
-                            <span class="skill-item">Container Registry</span>
-                            <span class="skill-item">Docker Scout</span>
-                        </div>
-                    </div>
-
-                    <div class="skill-category">
-                        <h3>💻 Programming</h3>
-                        <div class="skill-items">
-                            <span class="skill-item">Python</span>
-                            <span class="skill-item">Java</span>
-                            <span class="skill-item">Bash/Shell</span>
-                            <span class="skill-item">Git</span>
-                            <span class="skill-item">Linux</span>
-                        </div>
-                    </div>
-
-                    <div class="skill-category">
-                        <h3>🔒 Security & Compliance</h3>
-                        <div class="skill-items">
-                            <span class="skill-item">WAF</span>
-                            <span class="skill-item">GuardDuty</span>
-                            <span class="skill-item">SLSA</span>
-                            <span class="skill-item">Cosign</span>
-                            <span class="skill-item">FIPS</span>
-                        </div>
-                    </div>
-
-                    <div class="skill-category">
-                        <h3>💾 Databases</h3>
-                        <div class="skill-items">
-                            <span class="skill-item">MySQL</span>
-                            <span class="skill-item">PostgreSQL</span>
-                            <span class="skill-item">MongoDB</span>
-                            <span class="skill-item">DynamoDB</span>
-                        </div>
-                    </div>
+                <div class="skills-grid" id="skills-grid">
+                    <!-- Will be populated by JavaScript -->
+                    <p>Loading skills...</p>
                 </div>
             </section>
 
+            <!-- Projects Section -->
             <section id="projects" class="section">
                 <h2>Key Projects & Achievements</h2>
-                <div class="project-grid">
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-title">Disaster Recovery Using Terraform and AWS</div>
-                            <div class="project-subtitle">Production-grade infrastructure with DR & HA</div>
-                            <div class="project-status">✓ Live</div>
-                        </div>
-                        <div class="project-content">
-                            <div class="project-description">
-                                Designed and implemented scalable three-tier architecture using Terraform, ensuring high
-                                availability and disaster recovery capabilities.
-                            </div>
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">99.9%</span>
-                                    <span class="metric-label">Uptime</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">18%</span>
-                                    <span class="metric-label">Cost Reduction</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">30%</span>
-                                    <span class="metric-label">Scalability Boost</span>
-                                </div>
-                            </div>
-                            <div class="tech-stack">
-                                <span class="tech-tag">Terraform</span>
-                                <span class="tech-tag">AWS</span>
-                                <span class="tech-tag">EKS</span>
-                                <span class="tech-tag">CloudWatch</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-title">Container Security Platform</div>
-                            <div class="project-subtitle">Automated vulnerability scanning & compliance</div>
-                            <div class="project-status">✓ Active</div>
-                        </div>
-                        <div class="project-content">
-                            <div class="project-description">
-                                Implemented comprehensive security scanning across 15 applications with Docker Scout,
-                                reducing critical vulnerabilities by 70%.
-                            </div>
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">70%</span>
-                                    <span class="metric-label">CVE Reduction</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">8hrs</span>
-                                    <span class="metric-label">Weekly Time Saved</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">15</span>
-                                    <span class="metric-label">Apps Secured</span>
-                                </div>
-                            </div>
-                            <div class="tech-stack">
-                                <span class="tech-tag">Docker Scout</span>
-                                <span class="tech-tag">Cosign</span>
-                                <span class="tech-tag">SLSA</span>
-                                <span class="tech-tag">GuardDuty</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-title">Private Git Server with SSO</div>
-                            <div class="project-subtitle">Enterprise-grade version control solution</div>
-                            <div class="project-status">✓ Production</div>
-                        </div>
-                        <div class="project-content">
-                            <div class="project-description">
-                                Deployed self-hosted Git server with Azure AD integration, successfully migrating 30+
-                                repositories for 25 developers with zero downtime.
-                            </div>
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">30+</span>
-                                    <span class="metric-label">Repos Migrated</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">25</span>
-                                    <span class="metric-label">Active Users</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">0</span>
-                                    <span class="metric-label">Downtime</span>
-                                </div>
-                            </div>
-                            <div class="tech-stack">
-                                <span class="tech-tag">Git</span>
-                                <span class="tech-tag">Azure AD</span>
-                                <span class="tech-tag">SSO</span>
-                                <span class="tech-tag">EC2</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-title">Containerization of an Application</div>
-                            <div class="project-subtitle">Enterprise-grade version control solution</div>
-                            <div class="project-status">✓ Production</div>
-                        </div>
-                        <div class="project-content">
-                            <div class="project-description">
-                                Containerized a three-tier application, isolating the presentation, business logic, and
-                                database layers using Docker. This enhanced the application's scalability and
-                                streamlined deployment on Kubernetes (K8s).
-                            </div>
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">20+</span>
-                                    <span class="metric-label">App Containerized</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">70%</span>
-                                    <span class="metric-label">Image Size Rduced</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">99.9</span>
-                                    <span class="metric-label">Optimized</span>
-                                </div>
-                            </div>
-                            <div class="tech-stack">
-                                <span class="tech-tag">Git</span>
-                                <span class="tech-tag">Azure AD</span>
-                                <span class="tech-tag">SSO</span>
-                                <span class="tech-tag">EC2</span>
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="project-grid" id="projects-grid">
+                    <!-- Will be populated by JavaScript -->
+                    <p>Loading projects...</p>
                 </div>
             </section>
 
+            <!-- Contact Section -->
             <section id="contact" class="section">
                 <h2>Get In Touch</h2>
-                <div class="contact-grid">
-                    <a href="mailto:rushiwaman95@gmail.com" class="contact-card">
-                        <div class="contact-icon">📧</div>
-                        <div class="contact-label">Email</div>
-                        <div class="contact-value">rushiwaman95@gmail.com</div>
-                    </a>
-                    <a href="tel:+918788393316" class="contact-card">
-                        <div class="contact-icon">📱</div>
-                        <div class="contact-label">Phone</div>
-                        <div class="contact-value">+91 8788393316</div>
-                    </a>
-                    <a href="https://github.com/rushiwaman95" target="_blank" class="contact-card">
-                        <div class="contact-icon">💻</div>
-                        <div class="contact-label">GitHub</div>
-                        <div class="contact-value">rushiwaman95</div>
-                    </a>
-                    <a href="https://www.linkedin.com/in/rushiwaman95/" target="_blank" class="contact-card">
-                        <div class="contact-icon">🔗</div>
-                        <div class="contact-label">LinkedIn</div>
-                        <div class="contact-value">rushiwaman95</div>
-                    </a>
+                <div class="contact-grid" id="contact-grid">
+                    <!-- Will be populated by JavaScript -->
+                    <p>Loading contact information...</p>
                 </div>
             </section>
+
         </main>
     </div>
+
+    <!-- ========================================
+         TERMINAL VIEW
+         ======================================== -->
     <div id="terminal-view">
         <div class="container">
+            
+            <!-- Main Terminal Panel -->
             <div class="terminal-panel">
                 <div class="terminal-header">
                     <div class="terminal-buttons">
@@ -1604,15 +199,19 @@
                     </div>
                     <div class="terminal-title">rushiwaman95@devops: ~ Interactive Shell</div>
                 </div>
+                
                 <div class="terminal-content" id="terminal-content">
-                    <div class="terminal-line"><span class="output">
-                        </span>
-<span class="success">Welcome to Rushikesh Waman's DevOps Portfolio Terminal</span>
-<span class="output">Last login: Fri Jul 18 17:20:00 2025 from 192.168.1.100</span>
-<span class="output">System: Ubuntu 22.04 LTS | Kernel: 5.15.0-aws</span>
+                    <div class="terminal-line">
+                        <span class="success">Welcome to Rushikesh Waman's DevOps Portfolio Terminal</span>
                     </div>
                     <div class="terminal-line">
-<span class="output">Type 'help' for a list of available commands.</span>
+                        <span class="output">Last login: Fri Jan 10 10:30:00 2025 from 192.168.1.100</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="output">System: Ubuntu 22.04 LTS | Kernel: 5.15.0-aws</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="output">Type 'help' for a list of available commands.</span>
                     </div>
 
                     <div class="input-line">
@@ -1622,6 +221,7 @@
                 </div>
             </div>
 
+            <!-- Live Achievement Feed -->
             <div class="live-terminal">
                 <div class="terminal-header">
                     <div class="terminal-buttons">
@@ -1633,907 +233,191 @@
                 </div>
 
                 <div class="live-output" id="live-output">
+                    <!-- Live feed will be populated here -->
                 </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ========================================
+         AI MODAL
+         ======================================== -->
+    <div id="askAiModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>💬 Ask the AI Assistant</h3>
+            <div id="aiChatLog" class="chat-log">
+                <div class="chat-message ai">
+                    Hello! I'm an AI assistant here to answer your questions about Rushikesh Waman's professional experience, skills, and projects. Feel free to ask me anything!
+                </div>
+            </div>
+            <div class="modal-input-container">
+                <textarea id="aiQueryInput" placeholder="Type your question here..." rows="3"></textarea>
+            </div>
+            <div class="modal-buttons">
+                <button class="submit-btn" onclick="submitAIPopupQuery()">Ask</button>
+                <button class="cancel-btn" onclick="closeAskAIPopup()">Close Chat</button>
             </div>
         </div>
     </div>
 
+    <!-- ========================================
+         TOGGLE BUTTONS
+         ======================================== -->
+    <button id="askAiTriggerButton" class="ask-ai-trigger-button" onclick="openAskAIPopup()">💬 Ask AI</button>
+    <button id="mainToggleButton" class="single-toggle-button" onclick="toggleView()">CLI</button>
+
+    <!-- ========================================
+         JAVASCRIPT FILES - Load in order
+         ======================================== -->
+    
+    <!-- Utilities -->
+    <script src="assets/js/utils/helpers.js"></script>
+    <script src="assets/js/utils/animation.js"></script>
+    
+    <!-- AI Module -->
+    <script src="assets/js/ai/api-config.js"></script>
+    <script src="assets/js/ai/ai-handler.js"></script>
+    <script src="assets/js/ai/ai-modal.js"></script>
+    
+    <!-- Terminal Module -->
+    <script src="assets/js/terminal/commands.js"></script>
+    <script src="assets/js/terminal/live-feed.js"></script>
+    <script src="assets/js/terminal/terminal.js"></script>
+    
+    <!-- Portfolio Module -->
+    <script src="assets/js/portfolio/pipeline.js"></script>
+    <script src="assets/js/portfolio/projects.js"></script>
+    <script src="assets/js/portfolio/skills.js"></script>
+    
+    <!-- View Manager & Main App -->
+    <script src="assets/js/view-manager.js"></script>
+    <script src="assets/js/app.js"></script>
+
+    <!-- Portfolio Content Builder -->
     <script>
-        // Global AI Context and Functions
-        const commands = {
-            whoami: {
-                output: `
-<span class="success">NAME</span>
-    Rushikesh Waman - DevOps Engineer
-
-<span class="success">SYNOPSIS</span>
-    AWS-certified DevOps Engineer with 2.5+ years of experience in Terraform-managed
-    infrastructure, Jenkins CI/CD, and Kubernetes orchestration. Seeking to leverage
-    expertise in scalable, secure cloud solutions and GitOps practices.
-
-<span class="success">CONTACT</span>
-    <span class="info">Email:</span>     rushiwaman95@gmail.com
-    <span class="info">Phone:</span>     +91 8788393316
-    <span class="info">LinkedIn:</span>  linkedin.com/in/rushiwaman95
-    <span class="info">GitHub:</span>    github.com/rushiwaman95
-`
-            },
-
-            skills: {
-                output: `
-<span class="success">TECHNICAL SKILLS MATRIX</span>
-──────────────────────────────────────────────────────────
-<span class="info">[Cloud Platform]</span>
-  ▸ <span class="command">Amazon Web Services (AWS):</span> EKS, EC2, S3, VPC, IAM, CloudWatch, GuardDuty
-
-<span class="info">[Infrastructure as Code]</span>
-  ▸ <span class="command">Terraform:</span> HashiCorp Certified, declarative infrastructure management
-  ▸ <span class="command">CloudFormation:</span> AWS native IaC
-  ▸ <span class="command">Ansible & Chef:</span> Configuration management and automation
-
-<span class="info">[CI/CD & DevOps]</span>
-  ▸ <span class="command">Jenkins:</span> Pipeline automation and continuous integration
-  ▸ <span class="command">Git:</span> Version control and collaboration
-  ▸ <span class="command">Docker:</span> Application containerization
-  ▸ <span class="command">Kubernetes (EKS):</span> Container orchestration at scale
-
-<span class="info">[Security & Compliance]</span>
-  ▸ <span class="command">Supply Chain:</span> Cosign, SLSA Framework
-  ▸ <span class="command">AWS Security:</span> WAF, IAM, GuardDuty, FIPS
-  ▸ <span class="command">Scanning:</span> Docker Scout for CVE detection
-
-<span class="info">[Programming & Scripting]</span>
-  ▸ <span class="command">Python, Java, Bash/Shell</span>
-
-<span class="info">[Databases]</span>
-  ▸ <span class="command">SQL:</span> MySQL, PostgreSQL
-  ▸ <span class="command">NoSQL:</span> MongoDB, DynamoDB
-`
-            },
-
-            experience: {
-                output: `
-<span class="success">PROFESSIONAL EXPERIENCE</span>
-──────────────────────────────────────────────────────────
-<span class="command">DevOps Engineer @ Flentas</span> (Feb 2023 - Present)
-
-  <span class="info">▸ DevOps & CI/CD Automation</span>
-    - Facilitated continuous deployment and established CI pipelines.
-    - Implemented Cosign for image signing and SLSA for supply chain security.
-
-  <span class="info">▸ Infrastructure as Code & Cloud Architecture</span>
-    - Managed infrastructure with Terraform, enabling version-controlled provisioning.
-    - Designed three-tier AWS architecture with DR/HA for production systems.
-
-  <span class="info">▸ Pre-Sales & DevOps Consulting</span>
-    - Developed SOWs, securing 3 new client contracts.
-    - Achieved average cost reductions of 20% for clients' cloud spend.
-    - Advised 5+ clients on infrastructure, CI/CD, and security best practices.
-
-  <span class="info">▸ Containerization & Kubernetes</span>
-    - Containerized applications with Docker and deployed to Amazon EKS.
-    - Improved scalability by 30% and managed clusters handling 10x traffic spikes.
-    - Reduced Kubernetes operational costs by 18% through rightsizing.
-
-  <span class="info">▸ Security, Compliance & Monitoring</span>
-    - Implemented security-focused practices, improving audit compliance by 25%.
-    - Automated vulnerability scanning, reducing manual review time by 8 hours/week.
-    - Reduced critical CVEs in container images by 70% within 3 months.
-`
-            },
-
-            projects: {
-                output: `
-<span class="success">KEY PROJECTS</span>
-──────────────────────────────────────────────────────────
-<span class="info">1. Three-Tier AWS Architecture</span>
-   <span class="command">Tech:</span> Terraform, AWS EKS, CloudWatch, DR/HA
-   <span class="output">Impact: Designed production-grade architecture achieving 99.9% uptime
-   and 18% cost savings.</span>
-
-<span class="info">2. Container Security Platform</span>
-   <span class="command">Tech:</span> Docker Scout, Cosign, SLSA, GuardDuty
-   <span class="output">Impact: Automated vulnerability scanning, reducing critical CVEs by 70%
-   and manual review time by 8 hours/week.</span>
-
-<span class="info">3. Private Git Server with SSO</span>
-   <span class="command">Tech:</span> Git, Azure AD, SSO, EC2, Nginx
-   <span class="output">Impact: Deployed self-hosted Git server with Azure AD integration, successfully
-   migrating 30+ repositories for 25 developers with zero downtime.</span>
-
-<span class="info">4. Aptly Repository Management</span>
-   <span class="command">Tech:</span> Aptly, EC2, Nginx, EFS
-   <span class="output">Impact: Improved artifact retrieval speed by 35% and automated
-   package distribution, saving 10 hours/week.</span>
-`
-            },
-
-            certs: {
-                output: `
-<span class="success">CERTIFICATIONS & EDUCATION</span>
-──────────────────────────────────────────────────────────
-<span class="info">[Professional Certifications]</span>
-  ▸ <span class="command">AWS Certified DevOps Engineer - Professional</span>
-  ▸ <span class="command">AWS Certified Solutions Architect - Associate</span>
-  ▸ <span class="command">AWS Certified SysOps Administrator - Associate</span>
-  ▸ <span class="command">HashiCorp Certified: Terraform - Associate</span>
-  ▸ <span class="command">IBM Certified: Cybersecurity Fundamentals</span>
-
-<span class="info">[Education]</span>
-  ▸ <span class="command">Bachelor of Engineering (Information Technology)</span>
-    Savitribai Phule Pune University, 2023
-`
-            },
-
-            contact: {
-                output: `
-<span class="success">CONTACT INFORMATION</span>
-──────────────────────────────────────────────────────────
-<span class="info">Email:</span>      <a href="mailto:rushiwaman95@gmail.com" style="color: #58a6ff;">rushiwaman95@gmail.com</a>
-<span class="info">Phone:</span>      +91 8788393316
-<span class="info">LinkedIn:</span>   <a href="https://www.linkedin.com/in/rushiwaman95/" target="_blank" style="color: #58a6ff;">linkedin.com/in/rushiwaman95</a>
-<span class="info">GitHub:</span>     <a href="https://github.com/rushiwaman95" target="_blank" style="color: #58a6ff;">github.com/rushiwaman95</a>
-
-<span class="success">AVAILABILITY</span>
-──────────────────────────────────────────────────────────
-Open to DevOps Engineer positions, cloud consulting opportunities,
-and projects involving AWS, Kubernetes, and CI/CD.
-Available for remote work globally.
-`
-            },
-
-            resume: {
-                output: `
-<span class="success">RESUME</span>
-──────────────────────────────────────────────────────────
-To request a full PDF copy of my resume, please send an email to:
-<span class="command">rushiwaman95@gmail.com</span> with the subject "Resume Request".
-`
-            },
-
-            help: {
-                output: `
-<span class="success">PORTFOLIO HELP</span>
-
-<span class="info">Usage:</span> command [options]
-
-<span class="info">DESCRIPTION</span>
-    This is an interactive portfolio terminal. Below is a list of
-    supported commands.
-
-<span class="info">AI-POWERED COMMANDS</span>
-    <span class="command">ask "..."</span>       ✨ Ask the AI assistant a question. (e.g., ask "what are your top skills?")
-
-<span class="info">PORTFOLIO COMMANDS</span>
-    <span class="command">whoami</span>          Displays my professional summary and contact info.
-    <span class="command">skills</span>          Lists the technical skills and tools I use.
-    <span class="command">experience</span>      Shows my detailed work experience.
-    <span class="command">projects</span>        Lists key projects with tech stacks and impact.
-    <span class="command">certs</span>           Displays professional certifications and education.
-    <span class="command">contact</span>         Shows ways to get in touch with me.
-    <span class="command">resume</span>          Provides information on how to get my PDF resume.
-
-<span class="info">SYSTEM COMMANDS</span>
-    <span class="command">help</span>            Shows this help menu.
-    <span class="command">clear</span>           Clears the terminal screen.
-    <span class="command">exit</span>            Closes the terminal session.
-
-<span class="info">NAVIGATION</span>
-    Use <span class="command">↑</span> and <span class="command">↓</span> arrow keys to navigate through command history.
-`
-            }
-        };
-
-        // Create a text-based context of the resume for the AI
-        const resumeContext = `
-        --- WHOAMI ---
-        ${commands.whoami.output.replace(/<[^>]*>?/gm, '')}
-
-        --- SKILLS ---
-        ${commands.skills.output.replace(/<[^>]*>?/gm, '')}
-
-        --- EXPERIENCE ---
-        ${commands.experience.output.replace(/<[^>]*>?/gm, '')}
-
-        --- PROJECTS ---
-        ${commands.projects.output.replace(/<[^>]*>?/gm, '')}
-
-        --- CERTIFICATIONS ---
-        ${commands.certs.output.replace(/<[^>]*>?/gm, '')}
-        `;
-
-
-
-        const p1_enc = "QUl6YVN5QW10bnZmbWY=";
-        const p2_rev_corrected = "XyrcsY_";
-        const p3_val = [82, 52, 76, 101, 53, 118, 104, 50, 89];
-        const p4_xor_hex_corrected = "32771f08126b12721c";
-        const p5_origina = "origina_segment_ignore_this";
-
-        function reconstructApiKey() {
-            const part1 = atob(p1_enc);
-            let part2_temp = p2_rev_corrected.split('').reverse().join('');
-            let part2 = part2_temp;
-            let part3 = String.fromCharCode(...p3_val);
-
-            const hexToBytes = (hex) => {
-                const bytes = [];
-                for (let i = 0; i < hex.length; i += 2) {
-                    bytes.push(parseInt(hex.substr(i, 2), 16));
+        // Build portfolio content from resume.json after data is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait for resume data to load
+            const checkData = setInterval(function() {
+                if (window.portfolioApp && window.portfolioApp.resumeData) {
+                    clearInterval(checkData);
+                    buildPortfolioContent();
                 }
-                return bytes;
+            }, 100);
+        });
+
+        function buildPortfolioContent() {
+            const data = window.portfolioApp.resumeData;
+            
+            // Update Summary
+            document.getElementById('summary-text').textContent = data.summary;
+            
+            // Build Certifications
+            const certsGrid = document.getElementById('certifications-grid');
+            certsGrid.innerHTML = data.certifications.map(cert => `
+                <div class="skill-category">
+                    <h3>🏆 ${cert.name}</h3>
+                    <div style="margin-top: 1rem;">
+                        <div style="font-size: 0.9rem; opacity: 0.8;">${cert.level}</div>
+                        <div style="font-size: 0.8rem; opacity: 0.7;">${cert.issuer}</div>
+                        <a href="${cert.url}" target="_blank" rel="noopener noreferrer" class="verify-btn">
+                            Verify
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Build Skills
+            const skillsGrid = document.getElementById('skills-grid');
+            const skillCategories = {
+                'Cloud Platforms': data.skills.cloud,
+                'Infrastructure as Code': data.skills.iac,
+                'CI/CD & DevOps': data.skills.cicd,
+                'Containerization': data.skills.containers,
+                'Security & Compliance': data.skills.security,
+                'Programming': data.skills.programming,
+                'Databases': data.skills.databases,
+                'Monitoring': data.skills.monitoring
             };
-            let xorBytes = hexToBytes(p4_xor_hex_corrected);
-
-            const xorPattern = "KEY";
-            let xorPatternBytes = xorPattern.split('').map(char => char.charCodeAt(0));
-
-            let part4_decrypted_codes = [];
-            for (let i = 0; i < xorBytes.length; i++) {
-                part4_decrypted_codes.push(xorBytes[i] ^ xorPatternBytes[i % xorPatternBytes.length]);
-            }
-
-            let part4 = String.fromCharCode(...part4_decrypted_codes);
-            const cleanedorigina = p5_origina.replace('origina_', '');
-
-            let tempKey1 = part1 + part2;
-            let tempKey2 = tempKey1 + part3;
-            let finalKey = tempKey2 + part4;
-            let originaManip1 = finalKey.substring(5, 15).split('').reverse().join('').split('').reverse().join('');
-            let originaManip2 = finalKey.split('').map(char => String.fromCharCode(char.charCodeAt(0))).join('');
-            const joinArray = (arr) => arr.join('');
-            let originaManip3 = joinArray(finalKey.split(''));
-            let originaManip4 = finalKey.split('').map(char => String.fromCharCode(char.charCodeAt(0) + (10 - 10))).join('');
-            if (Date.now() > 0) { }
-            let tempSection = finalKey.substring(0, 10);
-            let encodedTemp = btoa(tempSection);
-            let decodedTemp = atob(encodedTemp);
-            let tempReplace = finalKey.replace(/A/g, 'X').replace(/X/g, 'A');
-            let charArray = finalKey.split('');
-            charArray.pop();
-            charArray.push(finalKey.slice(-1));
-            const identityFunction = (str) => {
-                let result = '';
-                for (let i = 0; i < str.length; i++) {
-                    result += String.fromCharCode(str.charCodeAt(i));
-                }
-                return result;
-            };
-            let originaManip5 = identityFunction(finalKey);
-            const now = new Date();
-            let originaManip6 = finalKey.normalize();
-            let offset = 0;
-            let finalOffsetKey = finalKey.split('').map(char => String.fromCharCode(char.charCodeAt(0) + offset)).join('');
-            let originaManip7 = finalKey.split(/(?=[A-Z])/).join('');
-            const unusedConst = 12345;
-
-            return finalKey;
-        }
-
-        const GEMINI_API_KEY = reconstructApiKey();
-
-
-        async function handleAskCommandAI(prompt) {
-            const chatLog = document.getElementById('aiChatLog');
-
-            addChatMessage(chatLog, `Thinking...`, 'info');
-            chatLog.scrollTop = chatLog.scrollHeight;
-
-            try {
-                const systemPrompt = `You are a professional AI assistant for Rushikesh Waman's portfolio. Your ONLY function is to answer questions about Rushikesh Waman, his skills, experience, projects, and resume, based on the context provided below.
-                    You MUST follow these rules:
-                    If the user say hi or hello, respond them with friendly greeting 
-                    If the user's question is about Rushikesh, answer it using ONLY the provided context. Keep the answer concise and professional.
-                    If the user's question is NOT about Rushikesh or his professional profile (e.g., "what is devops?", "write a poem", "who is the president?"), you MUST respond with EXACTLY this phrase: "I am only authorized to answer questions about Rushikesh Waman and his professional experience."
-                    If the user's question is about Rushikesh's resume, provide a brief summary and direct them to email for the full PDF version.
-                    If the user's question is about his skills, experience, projects, or certifications, provide a concise answer based on the context.
-
-                    Do not apologize or add any other text to the refusal message.
-
-                    Here is the context about Rushikesh Waman:
-            ---
-            ${resumeContext}
-            ---
-
-User's Question: "${prompt}"`;
-
-                let chatHistory = [{ role: "user", parts: [{ text: systemPrompt }] }];
-                const payload = { contents: chatHistory };
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`API request failed with status ${response.status}`);
-                }
-
-                const result = await response.json();
-
-                // Remove the "Thinking..." message
-                if (chatLog.lastChild && chatLog.lastChild.classList.contains('info')) {
-                    chatLog.removeChild(chatLog.lastChild);
-                }
-
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    const text = result.candidates[0].content.parts[0].text;
-                    addChatMessage(chatLog, text, 'ai');
-                } else {
-                    throw new Error("Invalid response structure from API.");
-                }
-            } catch (error) {
-                // Remove the "Thinking..." message even if error occurs
-                if (chatLog.lastChild && chatLog.lastChild.classList.contains('info')) {
-                    chatLog.removeChild(chatLog.lastChild);
-                }
-                console.error("Gemini API Error (Popup):", error);
-                addChatMessage(chatLog, `Sorry, I couldn't get an answer. Please try again later.`, 'ai');
-            } finally {
-                chatLog.scrollTop = chatLog.scrollHeight; // Scroll to bottom after AI response
-            }
-        }
-
-        function addChatMessage(chatLogElement, message, senderClass) {
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('chat-message', senderClass);
-            messageDiv.textContent = message;
-            chatLogElement.appendChild(messageDiv);
-            chatLogElement.scrollTop = chatLogElement.scrollHeight; // Auto-scroll to latest message
-        }
-
-
-        // Functions from index.html script (modified for global access if needed)
-        function showStageDetails(stage) {
-            const logs = document.getElementById('portfolio-pipeline-logs');
-            const stageDetails = {
-                commit: [
-                    '[INFO] Git commit received: feat: add new deployment strategy',
-                    '[INFO] Validating commit message format...',
-                    '[SUCCESS] Commit message follows conventional commits',
-                    '[INFO] Checking for merge conflicts...',
-                    '[SUCCESS] No conflicts detected'
-                ],
-                build: [
-                    '[INFO] Starting Docker image build...',
-                    '[INFO] Pulling base image: node:16-alpine',
-                    '[INFO] Installing dependencies...',
-                    '[INFO] Running build scripts...',
-                    '[SUCCESS] Docker image built successfully',
-                    '[INFO] Image size: 245MB (optimized)'
-                ],
-                test: [
-                    '[INFO] Running unit tests...',
-                    '[SUCCESS] 127 tests passed',
-                    '[INFO] Running integration tests...',
-                    '[SUCCESS] 45 integration tests passed',
-                    '[INFO] Code coverage: 94.2%',
-                    '[SUCCESS] All tests completed successfully'
-                ],
-                security: [
-                    '[INFO] Scanning Docker image for vulnerabilities...',
-                    '[INFO] Running Trivy security scan...',
-                    '[SUCCESS] No critical vulnerabilities found',
-                    '[INFO] Checking for secrets in code...',
-                    '[SUCCESS] No secrets detected',
-                    '[INFO] SLSA compliance check: PASSED'
-                ],
-                deploy: [
-                    '[INFO] Deploying to EKS cluster...',
-                    '[INFO] Updating Kubernetes manifests...',
-                    '[INFO] Rolling out new deployment...',
-                    '[SUCCESS] Deployment completed successfully',
-                    '[INFO] Health check: All pods running',
-                    '[SUCCESS] Application is live and healthy'
-                ]
-            };
-
-            logs.innerHTML = '';
-            stageDetails[stage].forEach((log, index) => {
-                setTimeout(() => {
-                    const logLine = document.createElement('div');
-                    logLine.className = `log-line ${log.includes('SUCCESS') ? 'log-success' : 'log-info'}`;
-                    logLine.textContent = log;
-                    logs.appendChild(logLine);
-                    logs.scrollTop = logs.scrollHeight;
-                }, index * 200);
-            });
-        }
-
-        // ...existing code...
-        function triggerPipeline() {
-            const status = document.getElementById('portfolio-pipeline-status');
-            const stages = document.querySelectorAll('#pipeline .pipeline-stage'); // Select within #pipeline section
-            const logs = document.getElementById('portfolio-pipeline-logs');
-
-            // Reset all stages
-            stages.forEach(stage => {
-                stage.classList.remove('success', 'active');
-            });
-
-            status.textContent = '🔄 Pipeline Running...';
-            status.className = 'status-badge status-running';
-
-            // Step-wise logs for GUI
-            const guiLogs = [
-                { type: 'log-info', text: '[INFO] Starting CI/CD pipeline...' },
-                { type: 'log-info', text: '[INFO] Validating Git commit...' },
-                { type: 'log-success', text: '[SUCCESS] Commit message validated' },
-                { type: 'log-info', text: '[INFO] Checking for merge conflicts...' },
-                { type: 'log-success', text: '[SUCCESS] Git commit validated' },
-                { type: 'log-info', text: '[INFO] Building Docker image...' },
-                { type: 'log-info', text: '[INFO] Pulling base image: node:16-alpine' },
-                { type: 'log-info', text: '[INFO] Installing dependencies...' },
-                { type: 'log-success', text: '[SUCCESS] Docker image built successfully' },
-                { type: 'log-info', text: '[INFO] Running unit tests...' },
-                { type: 'log-success', text: '[SUCCESS] Build completed successfully' },
-                { type: 'log-info', text: '[INFO] Running unit tests...' },
-                { type: 'log-success', text: '[SUCCESS] Unit tests passed (127 tests)' },
-                { type: 'log-info', text: '[INFO] Running integration tests...' },
-                { type: 'log-success', text: '[SUCCESS] Integration tests passed (45 tests)' },
-                { type: 'log-success', text: '[SUCCESS] All tests passed (Coverage: 94%)' },
-                { type: 'log-info', text: '[INFO] Scanning for vulnerabilities...' },
-                { type: 'log-info', text: '[INFO] Running Trivy security scan...' },
-                { type: 'log-success', text: '[SUCCESS] No critical vulnerabilities found' },
-                { type: 'log-info', text: '[INFO] Checking for secrets in code...' },
-                { type: 'log-success', text: '[SUCCESS] No secrets detected' },
-                { type: 'log-info', text: '[INFO] SLSA compliance check...' },
-                { type: 'log-success', text: '[SUCCESS] Security scan completed - No critical issues' },
-                { type: 'log-info', text: '[INFO] Deploying to EKS cluster...' },
-                { type: 'log-info', text: '[INFO] Updating Kubernetes manifests...' },
-                { type: 'log-info', text: '[INFO] Rolling out new deployment...' },
-                { type: 'log-info', text: '[INFO] Health check in progress...' },
-                { type: 'log-success', text: '[SUCCESS] All pods running' },
-                { type: 'log-info', text: '[INFO] Application is live and healthy' },
-                { type: 'log-success', text: '[SUCCESS] Deployment completed successfully' }
-            ];
-
-            // Clear previous logs
-            logs.innerHTML = '';
-
-            // Animate logs step-wise
-            guiLogs.forEach((log, idx) => {
-                setTimeout(() => {
-                    const logLine = document.createElement('div');
-                    logLine.className = `log-line ${log.type}`;
-                    logLine.textContent = log.text;
-                    logs.appendChild(logLine);
-                    logs.scrollTop = logs.scrollHeight;
-                }, idx * 200); // 900ms per step for visible animation
-            });
-
-            // Simulate stage execution
-            stages.forEach((stage, index) => {
-                setTimeout(() => {
-                    stage.classList.add('active');
-                    setTimeout(() => {
-                        stage.classList.remove('active');
-                        stage.classList.add('success');
-
-                        if (index === stages.length - 1) {
-                            status.textContent = '✓ All Checks Passing';
-                            status.className = 'status-badge status-success';
-                        }
-                    }, 1000);
-                }, index * 1200);
-            });
-        }
-        // ...existing code...
-        function showTierDetails(tier) {
-            const tierDetails = {
-                presentation: 'Handles user requests and serves static content through CloudFront CDN, with S3 for static assets and Route 53 for DNS management.',
-                application: 'Processes business logic using EKS for containerized applications, with auto-scaling groups and load balancers for high availability.',
-                data: 'Manages persistent data with RDS for relational data, DynamoDB for NoSQL, and ElastiCache for caching and session management.'
-            };
-
-            alert(`${tier.charAt(0).toUpperCase() + tier.slice(1)} Tier:\n\n${tierDetails[tier]}`);
-        }
-
-        // Functions from v3.html script (modified for unique IDs and global access)
-        let terminalOutputRef = null; // Reference to the current terminal output div
-        let terminalInputRef = null; // Reference to the current terminal input element
-        let commandHistory = [];
-        let historyIndex = -1;
-        let liveOutputInterval; // To manage the live feed interval
-
-        const resumeHighlights = [
-            { type: 'success', message: '[ACHIEVEMENT] Reduced Kubernetes cluster operational costs by 18% through rightsizing.' },
-            { type: 'success', message: '[ACHIEVEMENT] Improved artifact retrieval speed by 35% by deploying Aptly repositories.' },
-            { type: 'success', message: '[ACHIEVEMENT] Secured 3 new client engagements via detailed SOWs and architectural diagrams.' },
-            { type: 'success', message: '[ACHIEVEMENT] Reduced critical vulnerabilities in container images by 70% using Docker Scout.' },
-            { type: 'success', message: '[ACHIEVEMENT] Automated repository pipelines, reducing manual effort by 10 hours/week.' },
-            { type: 'success', message: '[ACHIEVEMENT] Improved client satisfaction scores by 20% through DevOps consulting.' },
-            { type: 'info', message: '[SKILL VALIDATED] Proficient in Terraform for Infrastructure as Code.' },
-            { type: 'info', message: '[SKILL VALIDATED] Expertise in Jenkins for CI/CD pipeline automation.' },
-            { type: 'info', message: '[SKILL VALIDATED] AWS Certified DevOps Engineer - Professional.' },
-            { type: 'info', message: '[SKILL VALIDATED] Container orchestration with Docker & Amazon EKS.' },
-            { type: 'info', message: '[SKILL VALIDATED] Implemented SLSA framework to secure software supply chains.' },
-            { type: 'info', message: '[PROJECT DEPLOYED] Designed and implemented a three-tier AWS architecture with DR/HA.' },
-            { type: 'info', message: '[PROJECT DEPLOYED] Managed private Git server with Azure AD SSO for 25 developers.' },
-            { type: 'warning', message: '[SYSTEM ALERT] Monitoring performance metrics for production-grade systems.' },
-            { type: 'warning', message: '[SECURITY SCAN] Enforcing compliance using IAM, GuardDuty, and Config Rules.' },
-            { type: 'success', message: '[ACHIEVEMENT] Automated cloud resource tagging, improving cost allocation accuracy by 15%.' },
-            { type: 'success', message: '[ACHIEVEMENT] Deployed centralized secret management with AWS Secrets Manager, enhancing security posture.' },
-            { type: 'success', message: '[ACHIEVEMENT] Reduced build pipeline duration from 45 to 20 minutes through parallelization.' },
-            { type: 'success', message: '[ACHIEVEMENT] Mentored junior DevOps engineers, improving team’s overall technical proficiency.' },
-            { type: 'success', message: '[ACHIEVEMENT] Implemented blue/green deployment strategy for zero-downtime releases.' },
-            { type: 'success', message: '[ACHIEVEMENT] Streamlined incident response by integrating PagerDuty with monitoring systems.' },
-            { type: 'success', message: '[ACHIEVEMENT] Developed custom scripts to automate routine system administration tasks.' },
-            { type: 'success', message: '[ACHIEVEMENT] Spearheaded adoption of serverless architectures for scalable microservices.' },
-            { type: 'success', message: '[ACHIEVEMENT] Optimized database performance by configuring Amazon RDS instances.' },
-            { type: 'success', message: '[ACHIEVEMENT] Led containerization effort for legacy applications, improving portability.' },
-            { type: 'info', message: '[SKILL VALIDATED] Strong understanding of network protocols and security best practices.' },
-            { type: 'info', message: '[SKILL VALIDATED] Experience with multi-cloud environments (AWS, Azure, GCP).' },
-            { type: 'info', message: '[SKILL VALIDATED] Proficient in Python and Shell scripting for automation.' },
-            { type: 'info', message: '[SKILL VALIDATED] Skilled in administering Linux-based systems.' },
-            { type: 'info', message: '[SKILL VALIDATED] Expertise in version control with Git and GitHub/GitLab.' },
-            { type: 'info', message: '[SKILL VALIDATED] Familiar with site reliability engineering (SRE) principles.' },
-            { type: 'info', message: '[SKILL VALIDATED] Implemented infrastructure scanning with tools like Terrascan and Checkov.' },
-            { type: 'info', message: '[SKILL VALIDATED] Designed and managed Kafka clusters for event streaming.' },
-            { type: 'info', message: '[SKILL VALIDATED] Proficient in managing and optimizing CI/CD tooling like GitLab CI.' },
-            { type: 'info', message: '[SKILL VALIDATED] Experienced with performance testing and load balancing solutions.' },
-            { type: 'info', message: '[PROJECT DEPLOYED] Built a robust logging and alerting system using Splunk.' },
-            { type: 'info', message: '[PROJECT DEPLOYED] Orchestrated a disaster recovery plan across multiple AWS regions.' },
-            { type: 'info', message: '[PROJECT DEPLOYED] Configured and secured VPN connectivity for remote development teams.' },
-            { type: 'info', message: '[PROJECT DEPLOYED] Implemented automated security checks within CI/CD pipelines.' },
-            { type: 'info', message: '[PROJECT DEPLOYED] Migrated legacy monolithic application to Kubernetes microservices.' },
-            { type: 'warning', message: '[SYSTEM ALERT] High CPU utilization detected on database servers.' },
-            { type: 'warning', message: '[SYSTEM ALERT] Elevated error rates observed in authentication service.' },
-            { type: 'warning', message: '[SECURITY SCAN] Vulnerability identified in web application firewall configuration.' },
-            { type: 'warning', message: '[SECURITY SCAN] Reviewing access logs for unusual activity patterns.' },
-            { type: 'warning', message: '[SYSTEM ALERT] Disk space critical on primary log aggregation node.' }
-        ];
-
-        function addLiveOutput() {
-            const liveOutput = document.getElementById('live-output');
-            if (!liveOutput) return; // Only run if terminal is active
-
-            const highlight = resumeHighlights[Math.floor(Math.random() * resumeHighlights.length)];
-            const timestamp = new Date().toLocaleTimeString();
-
-            const line = document.createElement('div');
-            line.className = 'output-line';
-            line.innerHTML = `<span class="prompt">[${timestamp}]</span> <span class="${highlight.type}">${highlight.message}</span>`;
-
-            liveOutput.appendChild(line);
-
-            if (liveOutput.children.length > 100) {
-                liveOutput.removeChild(liveOutput.firstChild);
-            }
-
-            liveOutput.scrollTop = liveOutput.scrollHeight;
-        }
-
-        function handleTerminalInput(e) {
-            if (e.key === 'Enter') {
-                const commandText = terminalInputRef.value.trim();
-                if (commandText) {
-                    if (commandHistory.length === 0 || commandHistory[commandHistory.length - 1] !== commandText) {
-                        commandHistory.push(commandText);
-                    }
-                    historyIndex = commandHistory.length;
-                    executeTerminalCommand(commandText);
-                } else {
-                    addTerminalLineForAI(`<span class="prompt">rushiwaman95@devops:~$</span> `);
-                    terminalInputRef.value = '';
-                    addNewPrompt();
-                }
-            } else if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                if (historyIndex > 0) {
-                    historyIndex--;
-                    terminalInputRef.value = commandHistory[historyIndex];
-                }
-            } else if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                if (historyIndex < commandHistory.length - 1) {
-                    historyIndex++;
-                    terminalInputRef.value = commandHistory[historyIndex];
-                } else {
-                    historyIndex = commandHistory.length;
-                    terminalInputRef.value = '';
-                }
-            }
-        }
-
-        async function executeTerminalCommand(commandText) {
-            const [command, ...args] = commandText.toLowerCase().split(' ');
-            const originalArgs = commandText.split(' ').slice(1).join(' ');
-
-            addTerminalLineForAI(`<span class="prompt">rushiwaman95@devops:~$</span> <span class="output">${commandText}</span>`);
-
-            if (command === 'clear') {
-                clearTerminal();
-                return;
-            }
-
-            if (command === 'exit') {
-                addTerminalLineForAI(`<span class="warning">Session ended. Thanks for visiting!</span>`);
-                terminalInputRef.disabled = true;
-                return;
-            }
-
-            if (command === 'ask') {
-                const question = originalArgs.replace(/["']/g, ""); // Remove quotes
-                if (!question) {
-                    addTerminalLineForAI(`<span class="error">Usage: ask "your question here"</span>`);
-                    addNewPrompt();
-                    return;
-                }
-                await handleAskCommand(question); // Call the terminal's AI handler
-                return;
-            }
-
-            if (commands[command]) {
-                addTerminalLineForAI(commands[command].output);
-            } else {
-                addTerminalLineForAI(`<span class="error">bash: ${command}: command not found</span>`);
-                addTerminalLineForAI(`Type '<span class="command">help</span>' for a list of available commands.`);
-            }
-
-            addNewPrompt();
-        }
-
-        async function handleAskCommand(prompt) {
-            const thinkingLine = document.createElement('div');
-            thinkingLine.className = 'terminal-line';
-            thinkingLine.innerHTML = `<span class="info">✨ Thinking...</span>`;
-            // Ensure terminalOutputRef is defined when this function is called
-            if (terminalOutputRef) {
-                const inputLine = terminalOutputRef.querySelector('.input-line');
-                if (inputLine) {
-                    terminalOutputRef.insertBefore(thinkingLine, inputLine);
-                } else {
-                    terminalOutputRef.appendChild(thinkingLine);
-                }
-                terminalOutputRef.scrollTop = terminalOutputRef.scrollHeight;
-            }
-
-            try {
-                const systemPrompt = `You are a professional AI assistant for Rushikesh Waman's portfolio. Your ONLY function is to answer questions about Rushikesh Waman, his skills, experience, projects, and resume, based on the context provided below.
-
-                    If the user's question is about Rushikesh, answer it using ONLY the provided context. Keep the answer concise and professional.
-                    If the user's question is NOT about Rushikesh or his professional profile (e.g., "what is devops?", "write a poem", "who is the president?"), you MUST respond with EXACTLY this phrase: "I am only authorized to answer questions about Rushikesh Waman and his professional experience."
-
-                    Do not apologize or add any other text to the refusal message.
-
-                    Here is the context about Rushikesh Waman:
-                    ---
-                    ${resumeContext}
-                    ---
-
-                    User's Question: "${prompt}"`;
-
-                let chatHistory = [{ role: "user", parts: [{ text: systemPrompt }] }];
-                const payload = { contents: chatHistory };
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`API request failed with status ${response.status}`);
-                }
-
-                const result = await response.json();
-
-                thinkingLine.remove();
-
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    const text = result.candidates[0].content.parts[0].text;
-                    addTerminalLineForAI(`<span class="output">${text}</span>`);
-                } else {
-                    throw new Error("Invalid response structure from API.");
-                }
-            } catch (error) {
-                thinkingLine.remove();
-                console.error("Gemini API Error (Terminal):", error);
-                addTerminalLineForAI(`<span class="error">Sorry, I couldn't get an answer. Please check the console for details.</span>`);
-            } finally {
-                addNewPrompt();
-            }
-        }
-
-        function addTerminalLineForAI(content) {
-            const line = document.createElement('div');
-            line.className = 'terminal-line';
-            line.innerHTML = content;
-
-            // Ensure terminalOutputRef is defined before using it
-            if (terminalOutputRef) {
-                const inputLine = terminalOutputRef.querySelector('.input-line');
-                if (inputLine) {
-                    terminalOutputRef.insertBefore(line, inputLine);
-                } else {
-                    terminalOutputRef.appendChild(line);
-                }
-                terminalOutputRef.scrollTop = terminalOutputRef.scrollHeight;
-            }
-        }
-
-        function addNewPrompt() {
-            // Ensure terminalOutputRef is defined before using it
-            if (!terminalOutputRef) return;
-
-            const oldInputLine = terminalOutputRef.querySelector('.input-line');
-            if (oldInputLine) {
-                oldInputLine.remove();
-            }
-
-            const newInputLine = document.createElement('div');
-            newInputLine.className = 'input-line';
-            newInputLine.innerHTML = `
-                <span class="prompt">rushiwaman95@devops:~$</span>
-                <input type="text" class="terminal-input" id="terminal-input" autofocus>
+            
+            skillsGrid.innerHTML = Object.entries(skillCategories).map(([category, skills]) => `
+                <div class="skill-category">
+                    <h3>${getCategoryIcon(category)} ${category}</h3>
+                    <div class="skill-items">
+                        ${skills.map(skill => `<span class="skill-item">${skill}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+            
+            // Build Projects
+            const projectsGrid = document.getElementById('projects-grid');
+            projectsGrid.innerHTML = data.projects.map(project => `
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-title">${project.title}</div>
+                        <div class="project-subtitle">${project.subtitle}</div>
+                        <div class="project-status">✓ ${project.status}</div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-description">${project.description}</div>
+                        <div class="project-metrics">
+                            ${Object.entries(project.metrics).slice(0, 3).map(([key, value]) => `
+                                <div class="metric">
+                                    <span class="metric-value">${value}</span>
+                                    <span class="metric-label">${key}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="tech-stack">
+                            ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Build Contact
+            const contactGrid = document.getElementById('contact-grid');
+            contactGrid.innerHTML = `
+                <a href="mailto:${data.personal.email}" class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-label">Email</div>
+                    <div class="contact-value">${data.personal.email}</div>
+                </a>
+                <a href="tel:${data.personal.phone}" class="contact-card">
+                    <div class="contact-icon">📱</div>
+                    <div class="contact-label">Phone</div>
+                    <div class="contact-value">${data.personal.phone}</div>
+                </a>
+                <a href="${data.personal.github}" target="_blank" class="contact-card">
+                    <div class="contact-icon">💻</div>
+                    <div class="contact-label">GitHub</div>
+                    <div class="contact-value">rushiwaman95</div>
+                </a>
+                <a href="${data.personal.linkedin}" target="_blank" class="contact-card">
+                    <div class="contact-icon">🔗</div>
+                    <div class="contact-label">LinkedIn</div>
+                    <div class="contact-value">rushiwaman95</div>
+                </a>
             `;
-
-            terminalOutputRef.appendChild(newInputLine);
-
-            terminalInputRef = document.getElementById('terminal-input');
-            terminalInputRef.focus();
-            // Remove previous event listener to prevent duplicates
-            terminalInputRef.removeEventListener('keydown', handleTerminalInput);
-            terminalInputRef.addEventListener('keydown', handleTerminalInput);
-
-            terminalOutputRef.scrollTop = terminalOutputRef.scrollHeight;
+            
+            console.log('✅ Portfolio content built successfully');
         }
-
-        function clearTerminal() {
-            // Ensure terminalOutputRef is defined before using it
-            if (!terminalOutputRef) return;
-
-            const linesToRemove = terminalOutputRef.querySelectorAll('.terminal-line, .input-line');
-            linesToRemove.forEach(line => line.remove());
-
-            const welcomeLine = document.createElement('div');
-            welcomeLine.className = 'terminal-line';
-            welcomeLine.innerHTML = `<span class="success">Terminal cleared.</span> Type '<span class="command">help</span>' for commands.`;
-            terminalOutputRef.appendChild(welcomeLine);
-            addNewPrompt();
+        
+        function getCategoryIcon(category) {
+            const icons = {
+                'Cloud Platforms': '☁️',
+                'Infrastructure as Code': '🔧',
+                'CI/CD & DevOps': '🔄',
+                'Containerization': '🐳',
+                'Security & Compliance': '🔒',
+                'Programming': '💻',
+                'Databases': '💾',
+                'Monitoring': '📊'
+            };
+            return icons[category] || '📌';
         }
-
-        let currentView = 'portfolio'; // Track the currently active view
-
-        function toggleView(forceTerminal = false) {
-            const portfolioView = document.getElementById('portfolio-view');
-            const terminalView = document.getElementById('terminal-view');
-            const mainToggleButton = document.getElementById('mainToggleButton');
-
-            if (currentView === 'portfolio' || forceTerminal) {
-                // CLI View
-
-                currentView = 'terminal';
-                portfolioView.style.display = 'none';
-                terminalView.style.display = 'flex'; // Use flex for terminal layout
-                mainToggleButton.textContent = 'GUI';
-                mainToggleButton.classList.remove('portfolio-active');
-
-                // Initialize terminal references and start live feed
-                terminalOutputRef = document.getElementById('terminal-content');
-                terminalInputRef = document.getElementById('terminal-input');
-                if (terminalInputRef) {
-                    terminalInputRef.focus();
-                    terminalInputRef.removeEventListener('keydown', handleTerminalInput); // Prevent double listeners
-                    terminalInputRef.addEventListener('keydown', handleTerminalInput);
-                }
-                clearInterval(liveOutputInterval); // Clear any existing interval
-                liveOutputInterval = setInterval(addLiveOutput, 3000); // Start new live feed
-                addLiveOutput(); // Initial live output
-                setTimeout(() => { addLiveOutput(); }, 1500);
-
-            } else {
-                // Switch to Portfolio View
-                portfolioView.style.display = 'block';
-                terminalView.style.display = 'none';
-                mainToggleButton.textContent = 'CLI';
-                mainToggleButton.classList.add('portfolio-active');
-
-                clearInterval(liveOutputInterval); // Stop live feed when not in terminal view
-                currentView = 'portfolio';
-            }
-        }
-
-        // AI Modal Functions
-        function openAskAIPopup() {
-            const modal = document.getElementById('askAiModal');
-            const aiQueryInput = document.getElementById('aiQueryInput');
-            modal.classList.add('visible');
-            aiQueryInput.value = ''; // Clear previous input
-            aiQueryInput.focus();
-        }
-
-        function closeAskAIPopup() {
-            const modal = document.getElementById('askAiModal');
-            modal.classList.remove('visible');
-        }
-
-        async function submitAIPopupQuery() {
-            const queryInput = document.getElementById('aiQueryInput');
-            const query = queryInput.value.trim();
-            const chatLog = document.getElementById('aiChatLog');
-
-            if (query) {
-                addChatMessage(chatLog, query, 'user');
-                queryInput.value = ''; // Clear input immediately
-                queryInput.style.height = 'auto'; // Reset textarea height
-
-                await handleAskCommandAI(query); // Process the query with AI
-            } else {
-                alert('Please enter a question for the AI.');
-            }
-        }
-
-        // Auto-resize textarea for AI popup input
-        document.getElementById('aiQueryInput').addEventListener('input', function () {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        });
-
-        document.getElementById('aiQueryInput').addEventListener('keydown', function (event) {
-            if (event.key === 'Enter' && !event.shiftKey) { // Submit on Enter, allow Shift+Enter for new line
-                event.preventDefault();
-                submitAIPopupQuery();
-            }
-        });
-
-        // ...existing code...
-        window.onload = function () {
-            toggleView(true); // Force CLI view on first load
-
-            // Set button text and class for CLI view
-            const mainToggleButton = document.getElementById('mainToggleButton');
-            mainToggleButton.textContent = 'GUI';
-            mainToggleButton.classList.remove('portfolio-active');
-
-            // Improved smooth scrolling for portfolio navigation links (fixes cursor/positioning issue)
-            document.querySelectorAll('nav a').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        // Get header height
-                        const header = document.querySelector('header');
-                        const headerHeight = header ? header.offsetHeight : 80;
-
-                        // Calculate target position with offset
-                        const targetTop = target.getBoundingClientRect().top + window.scrollY - headerHeight - 10;
-
-                        // Only scroll if not already at the correct position (allow 2px tolerance)
-                        if (Math.abs(window.scrollY - targetTop) > 2) {
-                            setTimeout(() => {
-                                window.scrollTo({
-                                    top: targetTop,
-                                    behavior: 'smooth'
-                                });
-                            }, 10); // Delay to allow any CSS transitions to finish
-                        } else {
-                            // If already at position, ensure focus is not lost
-                            window.scrollTo({
-                                top: targetTop,
-                                behavior: 'auto'
-                            });
-                        }
-                    }
-                });
-            });
-
-            document.querySelector('.terminal-panel').addEventListener('click', function () {
-                if (terminalInputRef) {
-                    terminalInputRef.focus();
-                }
-            });
-        };
-        // ...existing code...
     </script>
-</body>
 
+</body>
 </html>
