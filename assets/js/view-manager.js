@@ -1,10 +1,3 @@
-// view-manager.js - View Manager
-// Handles switching between Portfolio and Terminal views
-
-/**
- * Toggle between Portfolio and Terminal views
- * @param {boolean} forceTerminal - Force terminal view on load
- */
 function toggleView(forceTerminal = false) {
     const portfolioView = document.getElementById('portfolio-view');
     const terminalView = document.getElementById('terminal-view');
@@ -14,6 +7,9 @@ function toggleView(forceTerminal = false) {
         console.error('❌ View elements not found');
         return;
     }
+    
+    // ⭐ DEBUG: Log who called toggleView
+    console.trace('🔍 toggleView called with forceTerminal:', forceTerminal);
     
     const currentView = window.portfolioApp.currentView;
     
@@ -67,27 +63,3 @@ function toggleView(forceTerminal = false) {
         console.log('✅ Portfolio view active');
     }
 }
-
-/**
- * Initialize view manager
- */
-function initializeViewManager() {
-    console.log('🎬 Initializing View Manager...');
-    
-    const mainToggleButton = document.getElementById('mainToggleButton');
-    if (mainToggleButton) {
-        mainToggleButton.addEventListener('click', () => toggleView());
-        console.log('✅ Toggle button initialized');
-    } else {
-        console.error('❌ Toggle button not found');
-    }
-}
-
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeViewManager);
-} else {
-    initializeViewManager();
-}
-
-console.log('🎬 View Manager script loaded');

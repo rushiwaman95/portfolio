@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Rushikesh Waman - AWS-Certified DevOps Engineer with 3.5+ years of experience in cloud infrastructure, CI/CD, and Kubernetes">
+    <meta name="description"
+        content="Rushikesh Waman - AWS-Certified DevOps Engineer with 3.5+ years of experience in cloud infrastructure, CI/CD, and Kubernetes">
     <meta name="keywords" content="DevOps, AWS, Terraform, Kubernetes, Docker, CI/CD, Cloud Engineer">
     <meta name="author" content="Rushikesh Waman">
     <title>Rushikesh Waman | DevOps Engineer Portfolio</title>
@@ -27,7 +28,7 @@
          PORTFOLIO VIEW
          ======================================== -->
     <div id="portfolio-view">
-        
+
         <!-- Header -->
         <header>
             <div class="header-content">
@@ -36,7 +37,7 @@
                 <nav>
                     <a href="#summary">Summary</a>
                     <a href="#certifications">Certifications</a>
-                    <a href="#pipeline">CI/CD Pipeline</a>
+                    <a href="#pipeline">Career Pipeline</a>
                     <a href="#skills">Skills</a>
                     <a href="#projects">Projects</a>
                     <a href="#contact">Contact</a>
@@ -46,7 +47,7 @@
 
         <!-- Main Content -->
         <main>
-            
+
             <!-- Summary Section -->
             <section id="summary" class="section">
                 <h2>Professional Summary</h2>
@@ -60,7 +61,8 @@
                             <span class="status-badge status-running">🔄 Always Learning</span>
                         </div>
                     </div>
-                    <div style="display: flex; justify-content: space-around; text-align: center; flex-wrap: wrap; gap: 1rem;">
+                    <div
+                        style="display: flex; justify-content: space-around; text-align: center; flex-wrap: wrap; gap: 1rem;">
                         <div>
                             <div style="font-size: 2rem; margin-bottom: 0.5rem;">5</div>
                             <div>Professional Certifications</div>
@@ -90,14 +92,18 @@
                 </div>
             </section>
 
-            <!-- CI/CD Pipeline Section -->
+            <!-- Career Pipeline Section -->
             <section id="pipeline" class="section">
-                <h2>Interactive CI/CD Pipeline</h2>
+                <h2>Interactive Career Pipeline</h2>
                 <div class="pipeline-container">
                     <div class="pipeline-header">
-                        <h3>🔄 Continuous Integration & Deployment</h3>
+                        <h3>🔄 Continuous Learning & Improvement</h3>
                         <div class="pipeline-status">
-                            <span class="status-badge status-success" id="portfolio-pipeline-status">✓ All Checks Passing</span>
+                            <button onclick="triggerPipeline()" class="btn-primary" >
+                                🚀 Trigger New Build
+                            </button>
+                            <span class="status-badge status-success" id="portfolio-pipeline-status">✓ All Checks
+                                Pass</span>
                             <span style="font-size: 0.9rem; opacity: 0.7;">Last run: 2m 34s ago</span>
                         </div>
                     </div>
@@ -105,37 +111,37 @@
                     <div class="pipeline-flow">
                         <div class="pipeline-stage success" onclick="showStageDetails('commit')">
                             <span class="stage-icon">📝</span>
-                            <div class="stage-name">Commit</div>
-                            <div class="stage-time">0.5s</div>
+                            <div class="stage-name">HSC</div>
+                            <div class="stage-time">2 years</div>
                             <div class="pipeline-arrow">→</div>
                         </div>
                         <div class="pipeline-stage success" onclick="showStageDetails('build')">
                             <span class="stage-icon">🔨</span>
-                            <div class="stage-name">Build</div>
-                            <div class="stage-time">1m 20s</div>
+                            <div class="stage-name">BE IT</div>
+                            <div class="stage-time">4 years</div>
                             <div class="pipeline-arrow">→</div>
                         </div>
                         <div class="pipeline-stage success" onclick="showStageDetails('test')">
                             <span class="stage-icon">🧪</span>
-                            <div class="stage-name">Test</div>
-                            <div class="stage-time">45s</div>
+                            <div class="stage-name">Ignite Solutions</div>
+                            <div class="stage-time">8 months</div>
                             <div class="pipeline-arrow">→</div>
                         </div>
                         <div class="pipeline-stage success" onclick="showStageDetails('security')">
                             <span class="stage-icon">🔒</span>
-                            <div class="stage-name">Security</div>
-                            <div class="stage-time">30s</div>
+                            <div class="stage-name">Flentas</div>
+                            <div class="stage-time">2.7 years</div>
                             <div class="pipeline-arrow">→</div>
                         </div>
                         <div class="pipeline-stage success" onclick="showStageDetails('deploy')">
                             <span class="stage-icon">🚀</span>
-                            <div class="stage-name">Deploy</div>
-                            <div class="stage-time">2m 10s</div>
+                            <div class="stage-name">Applied Cloud Conputing</div>
+                            <div class="stage-time">3 months</div>
                         </div>
                     </div>
 
                     <div class="pipeline-logs" id="portfolio-pipeline-logs">
-                        <div class="log-line log-info">[INFO] Starting CI/CD pipeline...</div>
+                        <div class="log-line log-info">[INFO] Starting Career pipeline...</div>
                         <div class="log-line log-success">[SUCCESS] Git commit validated</div>
                         <div class="log-line log-info">[INFO] Building Docker image...</div>
                         <div class="log-line log-success">[SUCCESS] Build completed successfully</div>
@@ -146,10 +152,6 @@
                         <div class="log-line log-info">[INFO] Deploying to EKS cluster...</div>
                         <div class="log-line log-success">[SUCCESS] Deployment completed successfully</div>
                     </div>
-
-                    <button onclick="triggerPipeline()" class="btn-primary" style="margin-top: 1rem;">
-                        🚀 Trigger New Build
-                    </button>
                 </div>
             </section>
 
@@ -188,7 +190,7 @@
          ======================================== -->
     <div id="terminal-view">
         <div class="container">
-            
+
             <!-- Main Terminal Panel -->
             <div class="terminal-panel">
                 <div class="terminal-header">
@@ -199,7 +201,7 @@
                     </div>
                     <div class="terminal-title">rushiwaman95@devops: ~ Interactive Shell</div>
                 </div>
-                
+
                 <div class="terminal-content" id="terminal-content">
                     <div class="terminal-line">
                         <span class="success">Welcome to Rushikesh Waman's DevOps Portfolio Terminal</span>
@@ -248,7 +250,8 @@
             <h3>💬 Ask the AI Assistant</h3>
             <div id="aiChatLog" class="chat-log">
                 <div class="chat-message ai">
-                    Hello! I'm an AI assistant here to answer your questions about Rushikesh Waman's professional experience, skills, and projects. Feel free to ask me anything!
+                    Hello! I'm an AI assistant here to answer your questions about Rushikesh Waman's professional
+                    experience, skills, and projects. Feel free to ask me anything!
                 </div>
             </div>
             <div class="modal-input-container">
@@ -270,26 +273,26 @@
     <!-- ========================================
          JAVASCRIPT FILES - Load in order
          ======================================== -->
-    
+
     <!-- Utilities -->
     <script src="assets/js/utils/helpers.js"></script>
     <script src="assets/js/utils/animation.js"></script>
-    
+
     <!-- AI Module -->
     <script src="assets/js/ai/api-config.js"></script>
     <script src="assets/js/ai/ai-handler.js"></script>
     <script src="assets/js/ai/ai-modal.js"></script>
-    
+
     <!-- Terminal Module -->
     <script src="assets/js/terminal/commands.js"></script>
     <script src="assets/js/terminal/live-feed.js"></script>
     <script src="assets/js/terminal/terminal.js"></script>
-    
+
     <!-- Portfolio Module -->
     <script src="assets/js/portfolio/pipeline.js"></script>
     <script src="assets/js/portfolio/projects.js"></script>
     <script src="assets/js/portfolio/skills.js"></script>
-    
+
     <!-- View Manager & Main App -->
     <script src="assets/js/view-manager.js"></script>
     <script src="assets/js/app.js"></script>
@@ -297,9 +300,9 @@
     <!-- Portfolio Content Builder -->
     <script>
         // Build portfolio content from resume.json after data is loaded
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Wait for resume data to load
-            const checkData = setInterval(function() {
+            const checkData = setInterval(function () {
                 if (window.portfolioApp && window.portfolioApp.resumeData) {
                     clearInterval(checkData);
                     buildPortfolioContent();
@@ -309,10 +312,10 @@
 
         function buildPortfolioContent() {
             const data = window.portfolioApp.resumeData;
-            
+
             // Update Summary
             document.getElementById('summary-text').textContent = data.summary;
-            
+
             // Build Certifications
             const certsGrid = document.getElementById('certifications-grid');
             certsGrid.innerHTML = data.certifications.map(cert => `
@@ -327,7 +330,7 @@
                     </div>
                 </div>
             `).join('');
-            
+
             // Build Skills
             const skillsGrid = document.getElementById('skills-grid');
             const skillCategories = {
@@ -340,7 +343,7 @@
                 'Databases': data.skills.databases,
                 'Monitoring': data.skills.monitoring
             };
-            
+
             skillsGrid.innerHTML = Object.entries(skillCategories).map(([category, skills]) => `
                 <div class="skill-category">
                     <h3>${getCategoryIcon(category)} ${category}</h3>
@@ -349,7 +352,7 @@
                     </div>
                 </div>
             `).join('');
-            
+
             // Build Projects
             const projectsGrid = document.getElementById('projects-grid');
             projectsGrid.innerHTML = data.projects.map(project => `
@@ -375,7 +378,7 @@
                     </div>
                 </div>
             `).join('');
-            
+
             // Build Contact
             const contactGrid = document.getElementById('contact-grid');
             contactGrid.innerHTML = `
@@ -400,10 +403,10 @@
                     <div class="contact-value">rushiwaman95</div>
                 </a>
             `;
-            
+
             console.log('✅ Portfolio content built successfully');
         }
-        
+
         function getCategoryIcon(category) {
             const icons = {
                 'Cloud Platforms': '☁️',
@@ -420,4 +423,5 @@
     </script>
 
 </body>
+
 </html>

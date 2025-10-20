@@ -356,6 +356,12 @@
     animation: fadeInUp 0.8s ease forwards;
 }
 
+/* First section needs extra top padding */
+.section:first-of-type {
+    margin-top: 0;
+    padding-top: 2.5rem;
+}
+
 @keyframes fadeInUp {
     to {
         opacity: 1;

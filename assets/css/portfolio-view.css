@@ -1,12 +1,25 @@
 /* portfolio-view.css - Portfolio View Styles */
 
 /* ========================================
+   SCROLL OFFSET FOR FIXED HEADER
+   ======================================== */
+
+/* html {
+    scroll-padding-top: 140px; Height of fixed header + some space */
+/* } */
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ========================================
    PORTFOLIO VIEW CONTAINER
    ======================================== */
 
 #portfolio-view {
     display: block;
-    margin-top: 100px;
+    margin-top: 200px;
     flex-grow: 1;
 }
 
